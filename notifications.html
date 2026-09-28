@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#08090d">
+<title>Notifications - EXBT77 Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(124,82,255,.14), transparent 35%),
+    #08090d;
+  color:#fff;
+  min-height:100vh;
+  padding-bottom:92px;
+  overflow-x:hidden;
+}
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  height:68px;
+  display:flex;
+  align-items:center;
+  padding:0 16px;
+  gap:13px;
+  background:rgba(8,9,13,.82);
+  border-bottom:1px solid rgba(255,255,255,.07);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+
+.back{
+  width:42px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.045);
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.back:active{
+  transform:scale(.92);
+}
+
+.back svg{
+  width:20px;
+  height:20px;
+  stroke:#fff;
+  fill:none;
+}
+
+.header-info{
+  flex:1;
+}
+
+.header-title{
+  font-size:18px;
+  font-weight:750;
+  letter-spacing:-.3px;
+}
+
+.header-subtitle{
+  margin-top:2px;
+  color:#747884;
+  font-size:11px;
+}
+
+.refresh-btn{
+  width:42px;
+  height:42px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.045);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.refresh-btn:active{
+  transform:scale(.92);
+}
+
+.refresh-btn.spinning svg{
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.refresh-btn svg{
+  width:19px;
+  height:19px;
+  stroke:#c9cbd3;
+  fill:none;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+  width:100%;
+  max-width:680px;
+  margin:0 auto;
+  padding:22px 15px 25px;
+}
+
+/* =====================================================
+   PAGE INTRO
+===================================================== */
+
+.page-intro{
+  margin-bottom:21px;
+}
+
+.intro-row{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.page-intro h1{
+  font-size:28px;
+  line-height:1.1;
+  letter-spacing:-.8px;
+  font-weight:800;
+}
+
+.notification-count{
+  min-width:28px;
+  height:25px;
+  padding:0 9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:rgba(145,92,255,.13);
+  border:1px solid rgba(145,92,255,.22);
+  color:#b89cff;
+  font-size:11px;
+  font-weight:700;
+}
+
+.page-intro p{
+  margin-top:8px;
+  color:#7f838f;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* =====================================================
+   LIST
+===================================================== */
+
+.notification-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+/* =====================================================
+   NOTIFICATION CARD
+===================================================== */
+
+.notification{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(145deg, rgba(22,24,33,.96), rgba(12,13,18,.98));
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:20px;
+  box-shadow:0 12px 35px rgba(0,0,0,.20);
+  cursor:pointer;
+  transform:translateZ(0);
+  animation:cardIn .35s ease both;
+  transition:transform .16s ease, border-color .16s ease;
+}
+
+.notification:active{
+  transform:scale(.985);
+}
+
+.notification::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:3px;
+  background:linear-gradient(180deg, #9a68ff, #6f45d9);
+  opacity:.9;
+}
+
+@keyframes cardIn{
+  from{
+    opacity:0;
+    transform:translateY(8px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.notification-image-wrap{
+  position:relative;
+  width:100%;
+  background:#0a0b0f;
+  overflow:hidden;
+}
+
+.notification-image{
+  width:100%;
+  height:190px;
+  object-fit:cover;
+  display:block;
+  transition:transform .3s ease;
+}
+
+.notification:active .notification-image{
+  transform:scale(1.015);
+}
+
+/* =====================================================
+   CARD CONTENT
+===================================================== */
+
+.notification-content{
+  padding:15px 15px 16px 17px;
+}
+
+.notification-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.title-wrap{
+  min-width:0;
+  flex:1;
+}
+
+.notification-title{
+  font-size:16px;
+  font-weight:750;
+  line-height:1.35;
+  color:#f7f7f9;
+  letter-spacing:-.15px;
+}
+
+.notification-time{
+  flex-shrink:0;
+  color:#686c77;
+  font-size:10px;
+  white-space:nowrap;
+  padding-top:2px;
+}
+
+.notification-message{
+  color:#989ca8;
+  font-size:13px;
+  line-height:1.65;
+  margin-top:7px;
+  display:-webkit-box;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:3;
+  overflow:hidden;
+}
+
+.read-more{
+  margin-top:11px;
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  color:#9e78ff;
+  font-size:11px;
+  font-weight:650;
+}
+
+.read-more svg{
+  width:13px;
+  height:13px;
+  stroke:currentColor;
+  fill:none;
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty{
+  text-align:center;
+  padding:65px 22px;
+  border:1px dashed #292c37;
+  border-radius:21px;
+  background:rgba(14,15,20,.72);
+}
+
+.empty-icon{
+  width:64px;
+  height:64px;
+  margin:0 auto 17px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:20px;
+  background:rgba(255,255,255,.045);
+  border:1px solid rgba(255,255,255,.06);
+}
+
+.empty-icon svg{
+  width:28px;
+  height:28px;
+  stroke:#727683;
+  fill:none;
+}
+
+.empty h3{
+  font-size:17px;
+  margin-bottom:7px;
+}
+
+.empty p{
+  color:#727681;
+  font-size:13px;
+  line-height:1.5;
+}
+
+/* =====================================================
+   LOADING SKELETON
+===================================================== */
+
+.loading-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.skeleton{
+  height:130px;
+  border-radius:20px;
+  border:1px solid rgba(255,255,255,.05);
+  background:
+    linear-gradient(90deg, #101117 20%, #181a22 40%, #101117 60%);
+  background-size:300% 100%;
+  animation:shimmer 1.4s infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:100% 0;}
+  100%{background-position:-100% 0;}
+}
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error-state{
+  text-align:center;
+  padding:60px 22px;
+  border:1px dashed rgba(255,92,92,.25);
+  border-radius:21px;
+  background:rgba(30,15,20,.55);
+}
+
+.error-state .empty-icon svg{
+  stroke:#ff7b7b;
+}
+
+.error-state h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.error-state p{
+  color:#7f838f;
+  font-size:12.5px;
+  line-height:1.5;
+}
+
+.retry-btn{
+  margin-top:16px;
+  height:42px;
+  padding:0 22px;
+  border:1px solid rgba(155,108,255,.28);
+  border-radius:13px;
+  background:rgba(155,108,255,.10);
+  color:#b99cff;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.retry-btn:active{
+  transform:scale(.96);
+}
+
+/* =====================================================
+   POPUP OVERLAY
+===================================================== */
+
+.popup-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+  padding:0;
+  background:rgba(0,0,0,.78);
+  backdrop-filter:blur(9px);
+  -webkit-backdrop-filter:blur(9px);
+}
+
+.popup-overlay.show{
+  display:flex;
+}
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+.popup{
+  position:relative;
+  width:100%;
+  max-width:540px;
+  max-height:92vh;
+  overflow-y:auto;
+  background:linear-gradient(145deg, #15161d, #0d0e13);
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:26px 26px 0 0;
+  box-shadow:0 -20px 80px rgba(0,0,0,.55);
+  animation:popupIn .22s ease;
+}
+
+@keyframes popupIn{
+  from{
+    opacity:0;
+    transform:translateY(35px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.popup::before{
+  content:"";
+  display:block;
+  width:38px;
+  height:4px;
+  margin:10px auto 4px;
+  border-radius:999px;
+  background:#343641;
+}
+
+/* =====================================================
+   POPUP IMAGE
+===================================================== */
+
+.popup-image{
+  width:100%;
+  max-height:48vh;
+  object-fit:contain;
+  display:block;
+  background:#08090d;
+}
+
+.popup-content{
+  padding:18px 18px 24px;
+}
+
+.popup-date{
+  color:#777b87;
+  font-size:10px;
+  margin-bottom:7px;
+}
+
+.popup-content h3{
+  font-size:20px;
+  line-height:1.35;
+  margin-bottom:9px;
+  letter-spacing:-.25px;
+}
+
+.popup-content p{
+  color:#a1a4ae;
+  font-size:14px;
+  line-height:1.7;
+  white-space:pre-wrap;
+}
+
+.popup-close{
+  position:absolute;
+  right:13px;
+  top:13px;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.14);
+  background:rgba(0,0,0,.62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:5;
+  transition:.18s;
+}
+
+.popup-close:active{
+  transform:scale(.92);
+}
+
+.popup-close svg{
+  width:18px;
+  height:18px;
+  stroke:#fff;
+  fill:none;
+}
+
+/* =====================================================
+   BOTTOM NAV
+===================================================== */
+
+.bottom-nav{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:40;
+  height:calc(74px + env(safe-area-inset-bottom));
+  padding-bottom:env(safe-area-inset-bottom);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  background:rgba(9,10,14,.94);
+  border-top:1px solid rgba(255,255,255,.07);
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.nav-item{
+  position:relative;
+  width:20%;
+  height:60px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  color:#696d79;
+  font-size:10px;
+  font-weight:600;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.nav-item svg{
+  width:21px;
+  height:21px;
+  stroke:currentColor;
+  fill:none;
+  transition:.18s ease;
+}
+
+.nav-item.active{
+  color:#a477ff;
+}
+
+.nav-item.active::before{
+  content:"";
+  position:absolute;
+  top:1px;
+  width:24px;
+  height:3px;
+  border-radius:999px;
+  background:#9b6cff;
+  box-shadow:0 0 14px rgba(155,108,255,.65);
+}
+
+.nav-item:active{
+  transform:scale(.92);
+}
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:100px;
+  transform:translateX(-50%) translateY(20px);
+  background:#191b24;
+  border:1px solid #2a2d39;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:600;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:400;
+  max-width:85%;
+  text-align:center;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* =====================================================
+   DESKTOP
+===================================================== */
+
+@media(min-width:700px){
+
+  .popup-overlay{
+    align-items:center;
+    padding:20px;
+  }
+
+  .popup{
+    border-radius:25px;
+    max-height:88vh;
+  }
+
+  .popup::before{
+    display:none;
+  }
+
+  .bottom-nav{
+    max-width:620px;
+    left:50%;
+    right:auto;
+    transform:translateX(-50%);
+    width:calc(100% - 30px);
+    border:1px solid rgba(255,255,255,.08);
+    border-bottom:none;
+    border-radius:20px 20px 0 0;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+  <div class="back" onclick="history.back()" aria-label="Go back">
+    <svg fill="none" viewBox="0 0 24 24">
+      <path d="M15 18l-6-6 6-6"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="header-info">
+    <div class="header-title">Notifications</div>
+    <div class="header-subtitle">Latest updates</div>
+  </div>
+
+  <button class="refresh-btn" id="refreshBtn" aria-label="Refresh">
+    <svg fill="none" viewBox="0 0 24 24">
+      <path d="M20 11a8 8 0 00-14.9-3M4 5v4h4"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+      <path d="M4 13a8 8 0 0014.9 3M20 19v-4h-4"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+  <section class="page-intro">
+    <div class="intro-row">
+      <h1>Updates</h1>
+      <div class="notification-count" id="notificationCount">0</div>
+    </div>
+    <p>Stay updated with the latest announcements and news.</p>
+  </section>
+
+  <div id="notificationList" class="notification-list">
+    <div class="loading-list">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </div>
+
+</main>
+
+
+<!-- =====================================================
+     POPUP
+===================================================== -->
+
+<div id="popupOverlay" class="popup-overlay">
+  <div class="popup" id="popupBox">
+    <button class="popup-close" id="popupClose" aria-label="Close">
+      <svg fill="none" viewBox="0 0 24 24">
+        <path d="M6 6l12 12M18 6L6 18"
+              stroke-width="2"
+              stroke-linecap="round"/>
+      </svg>
+    </button>
+
+    <img id="popupImage" class="popup-image" src="" alt="">
+
+    <div class="popup-content">
+      <div id="popupDate" class="popup-date"></div>
+      <h3 id="popupTitle"></h3>
+      <p id="popupMessage"></p>
+    </div>
+  </div>
+</div>
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div class="toast" id="toast">Notification</div>
+
+
+<!-- =====================================================
+     BOTTOM NAVIGATION
+===================================================== -->
+
+<nav class="bottom-nav">
+
+  <div class="nav-item" onclick="location.href='home.html'">
+    <svg fill="none" viewBox="0 0 24 24">
+      <path d="M3 10.5L12 3l9 7.5v9a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 19.5v-9z"
+            stroke-width="1.8"
+            stroke-linejoin="round"/>
+      <path d="M9 21v-6h6v6"
+            stroke-width="1.8"/>
+    </svg>
+    Home
+  </div>
+
+  <div class="nav-item" onclick="location.href='games.html'">
+    <svg fill="none" viewBox="0 0 24 24">
+      <rect x="3" y="6" width="18" height="12" rx="5"
+            stroke-width="1.8"/>
+      <path d="M8 12h4M10 10v4M16 10h.01M18 13h.01"
+            stroke-width="2"
+            stroke-linecap="round"/>
+    </svg>
+    Games
+  </div>
+
+  <div class="nav-item" onclick="location.href='tasks.html'">
+    <svg fill="none" viewBox="0 0 24 24">
+      <path d="M6 3h12v18H6z"
+            stroke-width="1.8"
+            stroke-linejoin="round"/>
+      <path d="M9 7h6M9 11h6M9 15h4"
+            stroke-width="1.8"
+            stroke-linecap="round"/>
+    </svg>
+    Tasks
+  </div>
+
+  <div class="nav-item" onclick="location.href='wallet.html'">
+    <svg fill="none" viewBox="0 0 24 24">
+      <path d="M3 7.5A2.5 2.5 0 015.5 5h13A2.5 2.5 0 0121 7.5v11A2.5 2.5 0 0118.5 21h-13A2.5 2.5 0 013 18.5v-11z"
+            stroke-width="1.8"/>
+      <path d="M16 13h5M16.5 13a1 1 0 100 2 1 1 0 000-2z"
+            stroke-width="1.8"/>
+    </svg>
+    Wallet
+  </div>
+
+  <div class="nav-item" onclick="location.href='profile.html'">
+    <svg fill="none" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"
+              stroke-width="1.8"/>
+      <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6"
+            stroke-width="1.8"
+            stroke-linecap="round"/>
+    </svg>
+    Profile
+  </div>
+
+</nav>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
+import {
+  initializeApp,
+  getApps,
+  getApp
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+  getDatabase,
+  ref,
+  get
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+   (সঠিক API Key — t ছোট হাতের)
+===================================================== */
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVuTqUM2jaawhWRzxWiK9cwUUxlH_LyB8",
+  authDomain: "exbt77-play.firebaseapp.com",
+  databaseURL: "https://exbt77-play-default-rtdb.firebaseio.com",
+  projectId: "exbt77-play",
+  storageBucket: "exbt77-play.firebasestorage.app",
+  messagingSenderId: "150332377686",
+  appId: "1:150332377686:web:9dbd97caecb7484a8089f7",
+  measurementId: "G-SR45LCFH98"
+};
+
+
+/* =====================================================
+   FIREBASE INIT (single instance)
+===================================================== */
+
+const app = getApps().length === 0
+  ? initializeApp(firebaseConfig)
+  : getApp();
+
+const db = getDatabase(app);
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const notificationList = document.getElementById("notificationList");
+const notificationCount = document.getElementById("notificationCount");
+const refreshBtn = document.getElementById("refreshBtn");
+const popupOverlay = document.getElementById("popupOverlay");
+const popupClose = document.getElementById("popupClose");
+const popupImage = document.getElementById("popupImage");
+const popupTitle = document.getElementById("popupTitle");
+const popupMessage = document.getElementById("popupMessage");
+const popupDate = document.getElementById("popupDate");
+const toast = document.getElementById("toast");
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function escapeHTML(v){
+  if(v === undefined || v === null) return "";
+  return String(v)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+function formatDate(timestamp){
+  if(!timestamp) return "Recently";
+  const d = new Date(Number(timestamp));
+  if(isNaN(d.getTime())) return "Recently";
+  return d.toLocaleString("en-US",{
+    day:"2-digit",
+    month:"short",
+    year:"numeric",
+    hour:"2-digit",
+    minute:"2-digit"
+  });
+}
+
+
+function relativeTime(timestamp){
+  if(!timestamp) return "Recently";
+  const diff = Date.now() - Number(timestamp);
+  if(diff < 0) return "Recently";
+
+  const seconds = Math.floor(diff / 1000);
+  if(seconds < 60) return "Just now";
+
+  const minutes = Math.floor(seconds / 60);
+  if(minutes < 60) return minutes + "m ago";
+
+  const hours = Math.floor(minutes / 60);
+  if(hours < 24) return hours + "h ago";
+
+  const days = Math.floor(hours / 24);
+  if(days < 7) return days + "d ago";
+
+  return formatDate(timestamp);
+}
+
+
+function showToast(msg){
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2400);
+}
+
+
+/* =====================================================
+   LOAD NOTIFICATIONS
+===================================================== */
+
+async function loadNotifications(showLoader){
+
+  if(showLoader){
+    refreshBtn.classList.add("spinning");
+  }
+
+  try{
+
+    const snap = await get(ref(db, "notifications"));
+
+    if(!snap.exists()){
+
+      notificationList.innerHTML = `
+        <div class="empty">
+          <div class="empty-icon">
+            <svg fill="none" viewBox="0 0 24 24">
+              <path d="M18 8a6 6 0 10-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9z"
+                    stroke-width="1.8"
+                    stroke-linejoin="round"/>
+              <path d="M10 21h4"
+                    stroke-width="1.8"
+                    stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>No Notifications</h3>
+          <p>You don't have any notifications right now.</p>
+        </div>
+      `;
+
+      notificationCount.textContent = "0";
+      return;
+
+    }
+
+    const notifications = [];
+
+    snap.forEach(child => {
+      const data = child.val() || {};
+      notifications.push({
+        id: child.key,
+        title: data.title || "EXBT77 Play",
+        message: data.message || "",
+        image: data.image || "",
+        createdAt: Number(data.createdAt || 0)
+      });
+    });
+
+    notifications.sort((a,b) => b.createdAt - a.createdAt);
+
+    notificationCount.textContent = notifications.length;
+
+    notificationList.innerHTML = "";
+
+    notifications.forEach((item, idx) => {
+
+      const card = document.createElement("div");
+      card.className = "notification";
+      card.style.animationDelay = (idx * 0.03) + "s";
+
+      const imageHtml = item.image
+        ? `
+          <div class="notification-image-wrap">
+            <img class="notification-image"
+                 src="${escapeHTML(item.image)}"
+                 alt="Notification"
+                 loading="lazy"
+                 onerror="this.style.display='none'">
+          </div>
+        `
+        : "";
+
+      const shortMessage = item.message.length > 140
+        ? item.message.substring(0, 140) + "..."
+        : item.message;
+
+      card.innerHTML = `
+        ${imageHtml}
+        <div class="notification-content">
+          <div class="notification-top">
+            <div class="title-wrap">
+              <div class="notification-title">
+                ${escapeHTML(item.title)}
+              </div>
+            </div>
+            <div class="notification-time">
+              ${relativeTime(item.createdAt)}
+            </div>
+          </div>
+
+          <div class="notification-message">
+            ${escapeHTML(shortMessage)}
+          </div>
+
+          <div class="read-more">
+            Read more
+            <svg fill="none" viewBox="0 0 24 24">
+              <path d="M9 18l6-6-6-6"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        openPopup(item);
+      });
+
+      notificationList.appendChild(card);
+
+    });
+
+    if(showLoader){
+      showToast("Notifications refreshed");
+    }
+
+  }catch(err){
+
+    console.error("Load error:", err);
+
+    notificationList.innerHTML = `
+      <div class="error-state">
+        <div class="empty-icon">
+          <svg fill="none" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="9"
+                    stroke-width="1.8"/>
+            <path d="M12 8v4M12 16h.01"
+                    stroke-width="2"
+                    stroke-linecap="round"/>
+          </svg>
+        </div>
+        <h3>Unable to Load</h3>
+        <p>Please check your connection and try again.</p>
+        <button class="retry-btn" onclick="location.reload()">
+          Retry
+        </button>
+      </div>
+    `;
+
+    notificationCount.textContent = "0";
+
+  }finally{
+
+    setTimeout(() => {
+      refreshBtn.classList.remove("spinning");
+    }, 500);
+
+  }
+
+}
+
+
+/* =====================================================
+   POPUP
+===================================================== */
+
+function openPopup(item){
+
+  popupTitle.textContent = item.title || "EXBT77 Play";
+  popupMessage.textContent = item.message || "";
+  popupDate.textContent = formatDate(item.createdAt);
+
+  if(item.image){
+    popupImage.src = item.image;
+    popupImage.style.display = "block";
+    popupImage.onerror = function(){
+      this.style.display = "none";
+    };
+  }else{
+    popupImage.src = "";
+    popupImage.style.display = "none";
+  }
+
+  popupOverlay.classList.add("show");
+  document.body.style.overflow = "hidden";
+
+}
+
+
+function closePopup(){
+  popupOverlay.classList.remove("show");
+  document.body.style.overflow = "";
+  popupImage.src = "";
+}
+
+
+popupClose.addEventListener("click", closePopup);
+
+popupOverlay.addEventListener("click", (e) => {
+  if(e.target === popupOverlay){
+    closePopup();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if(e.key === "Escape"){
+    closePopup();
+  }
+});
+
+
+/* =====================================================
+   REFRESH
+===================================================== */
+
+refreshBtn.addEventListener("click", () => {
+  loadNotifications(true);
+});
+
+
+/* =====================================================
+   INIT
+===================================================== */
+
+loadNotifications(false);
+
+</script>
+
+</body>
+</html>

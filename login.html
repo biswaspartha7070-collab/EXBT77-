@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login - EXBT77 Play</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    background:#080b10;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.box{
+    width:100%;
+    max-width:430px;
+    padding:25px;
+}
+
+.logo{
+    width:65px;
+    height:65px;
+    border-radius:20px;
+    margin:0 auto 25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:29px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#8155ff,#4c22d6);
+}
+
+h1{
+    text-align:center;
+    font-size:25px;
+}
+
+.sub{
+    text-align:center;
+    color:#7f8794;
+    font-size:12px;
+    margin:8px 0 28px;
+}
+
+label{
+    display:block;
+    color:#aeb4bf;
+    font-size:11px;
+    margin:15px 0 7px;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border-radius:13px;
+    border:1px solid #ffffff0d;
+    background:#12161e;
+    color:white;
+    outline:none;
+}
+
+input:focus{
+    border-color:#7650ff;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:20px;
+    border:0;
+    border-radius:13px;
+    background:linear-gradient(135deg,#8055ff,#542bdc);
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:disabled{
+    opacity:.65;
+    cursor:default;
+}
+
+.register{
+    text-align:center;
+    margin-top:20px;
+    color:#858c98;
+    font-size:12px;
+}
+
+.register a{
+    color:#9879ff;
+    text-decoration:none;
+}
+
+.error{
+    display:none;
+    margin-top:15px;
+    padding:13px;
+    border-radius:10px;
+    background:#ff3d3d18;
+    color:#ff7777;
+    font-size:11px;
+    line-height:1.6;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <div class="logo">$</div>
+
+    <h1>Welcome Back</h1>
+
+    <div class="sub">
+        Login to your EXBT77 Play account
+    </div>
+
+    <form id="loginForm">
+
+        <label>Email</label>
+
+        <input
+            id="email"
+            type="email"
+            required
+            placeholder="Enter email"
+        >
+
+        <label>Password</label>
+
+        <input
+            id="password"
+            type="password"
+            required
+            placeholder="Enter password"
+        >
+
+        <button id="loginButton" type="submit">
+            LOGIN
+        </button>
+
+        <div class="error" id="error"></div>
+
+    </form>
+
+    <div class="register">
+        New user?
+        <a href="register.html">Create Account</a>
+    </div>
+
+</div>
+
+
+<script type="module">
+
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+
+/* Firebase Configuration */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCVuTqUM2jaawhWRzxWiK9cwUUxlH_LyB8",
+    authDomain: "exbt77-play.firebaseapp.com",
+    databaseURL: "https://exbt77-play-default-rtdb.firebaseio.com",
+    projectId: "exbt77-play",
+    storageBucket: "exbt77-play.firebasestorage.app",
+    messagingSenderId: "150332377686",
+    appId: "1:150332377686:web:9dbd97caecb7484a8089f7",
+    measurementId: "G-SR45LCFH98"
+};
+
+
+/* Firebase Initialize */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+/* Ensure auth state persists across page loads */
+setPersistence(auth, browserLocalPersistence).catch(err => {
+    console.error("Persistence error:", err);
+});
+
+
+/* =========================================================
+   LOOP PROTECTION HELPERS
+   ---------------------------------------------------------
+   login.html ↔ home.html এর মধ্যে infinite redirect loop
+   ঠেকানোর জন্য। ৩ সেকেন্ডের মধ্যে দ্বিতীয় redirect হলে
+   সেটা loop হিসেবে ধরা হবে এবং থেমে যাবে।
+   ========================================================= */
+
+const REDIRECT_KEY = "__last_redirect__";
+const REDIRECT_WINDOW = 3000; // ms
+
+function isRedirectLoop(){
+    try{
+        const last = sessionStorage.getItem(REDIRECT_KEY);
+        if(!last) return false;
+        return (Date.now() - Number(last)) < REDIRECT_WINDOW;
+    }catch(e){
+        return false;
+    }
+}
+
+function markRedirect(){
+    try{
+        sessionStorage.setItem(REDIRECT_KEY, String(Date.now()));
+    }catch(e){}
+}
+
+
+/* =========================================================
+   CHECK EXISTING LOGIN
+   ---------------------------------------------------------
+   আগে এখানে সরাসরি location.replace("home.html") ছিল,
+   যেটা home.html → login.html → home.html → ... loop
+   তৈরি করত।
+   এখন:
+     • শুধু user থাকলে redirect হবে
+     • loop detected হলে থেমে যাবে
+     • redirect-এর আগে timestamp mark করা হবে
+   ========================================================= */
+
+onAuthStateChanged(auth, user => {
+
+    if(!user) return;
+
+    if(isRedirectLoop()){
+        console.warn("Login redirect loop detected — stopping.");
+        return;
+    }
+
+    markRedirect();
+    location.replace("home.html");
+
+});
+
+
+/* =========================================================
+   LOGIN HANDLER  (অপরিবর্তিত)
+   ========================================================= */
+
+document.getElementById("loginForm").addEventListener(
+    "submit",
+    async e=>{
+
+        e.preventDefault();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const password =
+            document.getElementById("password").value;
+
+        const error =
+            document.getElementById("error");
+
+        const button =
+            document.getElementById("loginButton");
+
+
+        error.style.display="none";
+
+        button.disabled=true;
+        button.textContent="LOGIN...";
+
+
+        try{
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            /* mark redirect before navigating */
+            markRedirect();
+
+            location.replace("home.html");
+
+
+        }catch(err){
+
+            error.style.display="block";
+
+
+            /*
+             * Firebase API KEY ERROR
+             */
+
+            if(
+                err.code==="auth/api-key-not-valid" ||
+                err.code==="auth/invalid-api-key"
+            ){
+
+                error.innerHTML=`
+
+                    <strong>Firebase Configuration Error</strong>
+
+                    <br><br>
+
+                    Firebase API Key গ্রহণ করছে না।
+
+                    <br><br>
+
+                    <strong>সম্ভাব্য কারণ:</strong>
+
+                    <br>
+
+                    • Firebase Console-এর API Key পরিবর্তন
+                    অথবা invalid হতে পারে।
+
+                    <br>
+
+                    • এই API Key অন্য Firebase Project-এর
+                    হতে পারে।
+
+                    <br>
+
+                    • Google Cloud-এ API restriction থাকতে পারে।
+
+                    <br>
+
+                    • Firebase Authentication API-এর
+                    permission/restriction সমস্যা হতে পারে।
+
+                    <br>
+
+                    • Firebase Web App configuration-এর
+                    সঙ্গে API Key-এর mismatch থাকতে পারে।
+
+                    <br><br>
+
+                    <small>
+                    Error Code:
+                    ${err.code || "unknown"}
+                    </small>
+
+                `;
+
+            }
+
+
+            /*
+             * INVALID LOGIN
+             */
+
+            else if(err.code==="auth/invalid-credential"){
+
+                error.textContent=
+                    "Email অথবা password সঠিক নয়।";
+
+            }
+
+
+            /*
+             * USER NOT FOUND
+             */
+
+            else if(err.code==="auth/user-not-found"){
+
+                error.textContent=
+                    "এই Email দিয়ে কোনো account পাওয়া যায়নি।";
+
+            }
+
+
+            /*
+             * WRONG PASSWORD
+             */
+
+            else if(err.code==="auth/wrong-password"){
+
+                error.textContent=
+                    "Password সঠিক নয়।";
+
+            }
+
+
+            /*
+             * INVALID EMAIL
+             */
+
+            else if(err.code==="auth/invalid-email"){
+
+                error.textContent=
+                    "দেওয়া Email address সঠিক নয়।";
+
+            }
+
+
+            /*
+             * TOO MANY REQUESTS
+             */
+
+            else if(err.code==="auth/too-many-requests"){
+
+                error.innerHTML=`
+
+                    <strong>
+                    সাময়িকভাবে Login বন্ধ রয়েছে
+                    </strong>
+
+                    <br><br>
+
+                    অনেকবার ভুল Login চেষ্টা হয়েছে।
+                    কিছুক্ষণ পরে আবার চেষ্টা করুন।
+
+                `;
+
+            }
+
+
+            /*
+             * OTHER FIREBASE ERRORS
+             */
+
+            else{
+
+                error.innerHTML=`
+
+                    <strong>Login Error</strong>
+
+                    <br><br>
+
+                    ${err.message}
+
+                    <br><br>
+
+                    <small>
+                    Error Code:
+                    ${err.code || "unknown"}
+                    </small>
+
+                `;
+
+            }
+
+
+            console.error(
+                "Firebase Login Error:",
+                err
+            );
+
+
+            button.disabled=false;
+            button.textContent="LOGIN";
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

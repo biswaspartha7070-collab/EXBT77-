@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <meta name="theme-color" content="#07080d">
+
+  <title>EXBT77 Play</title>
+
+  <style>
+
+    /* =========================================================
+       RESET
+    ========================================================= */
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+
+      -webkit-tap-highlight-color:transparent;
+      -webkit-touch-callout:none;
+
+      user-select:none;
+      -webkit-user-select:none;
+    }
+
+
+    html,
+    body{
+      width:100%;
+      height:100%;
+      overflow:hidden;
+
+      background:#07080d;
+    }
+
+
+    body{
+      font-family:
+        Inter,
+        Roboto,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      color:#fff;
+    }
+
+
+    /* =========================================================
+       MAIN SPLASH
+    ========================================================= */
+
+    .splash{
+      position:relative;
+
+      width:100%;
+      height:100%;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      overflow:hidden;
+
+      background:
+        radial-gradient(
+          circle at 50% 27%,
+          rgba(126,76,255,.16) 0%,
+          rgba(126,76,255,.06) 24%,
+          transparent 48%
+        ),
+        radial-gradient(
+          circle at 15% 85%,
+          rgba(91,51,214,.08),
+          transparent 32%
+        ),
+        #07080d;
+    }
+
+
+    /* =========================================================
+       BACKGROUND DECORATION
+    ========================================================= */
+
+    .ambient{
+      position:absolute;
+
+      width:280px;
+      height:280px;
+
+      border-radius:50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(123,76,255,.09),
+          transparent 68%
+        );
+
+      filter:blur(10px);
+
+      pointer-events:none;
+
+      animation:
+        ambientMove 7s ease-in-out infinite;
+    }
+
+
+    .ambient.one{
+      top:-150px;
+      right:-120px;
+    }
+
+
+    .ambient.two{
+      bottom:-170px;
+      left:-130px;
+
+      animation-delay:-3s;
+    }
+
+
+    @keyframes ambientMove{
+
+      0%,
+      100%{
+        transform:translate3d(0,0,0) scale(1);
+      }
+
+      50%{
+        transform:translate3d(8px,-12px,0) scale(1.06);
+      }
+
+    }
+
+
+    /* =========================================================
+       CONTENT
+    ========================================================= */
+
+    .content{
+      position:relative;
+      z-index:5;
+
+      width:min(88%,390px);
+
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+
+      text-align:center;
+    }
+
+
+    /* =========================================================
+       LOGO
+    ========================================================= */
+
+    .logo-wrap{
+      position:relative;
+
+      width:94px;
+      height:94px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      animation:
+        logoEntry .75s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+
+    .logo-glow{
+      position:absolute;
+
+      inset:-18px;
+
+      border-radius:34px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(124,77,255,.28),
+          transparent 67%
+        );
+
+      filter:blur(12px);
+
+      animation:
+        glowPulse 3.2s ease-in-out infinite;
+    }
+
+
+    .logo{
+      position:relative;
+
+      width:92px;
+      height:92px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      border-radius:27px;
+
+      background:
+        linear-gradient(
+          145deg,
+          #a477ff 0%,
+          #7443e7 46%,
+          #5128c5 100%
+        );
+
+      box-shadow:
+        0 20px 55px rgba(86,47,205,.35),
+        inset 0 1px 1px rgba(255,255,255,.25),
+        inset 0 -1px 2px rgba(0,0,0,.22);
+
+      overflow:hidden;
+    }
+
+
+    .logo::before{
+      content:"";
+
+      position:absolute;
+
+      top:-45%;
+      left:-20%;
+
+      width:150%;
+      height:80%;
+
+      background:
+        linear-gradient(
+          110deg,
+          transparent 25%,
+          rgba(255,255,255,.16) 48%,
+          transparent 68%
+        );
+
+      transform:rotate(-12deg);
+
+      animation:
+        logoShine 3.8s ease-in-out infinite;
+    }
+
+
+    .logo::after{
+      content:"";
+
+      position:absolute;
+
+      inset:1px;
+
+      border-radius:26px;
+
+      border:1px solid rgba(255,255,255,.13);
+
+      pointer-events:none;
+    }
+
+
+    /* =========================================================
+       C.PNG IMAGE
+    ========================================================= */
+
+    .logo img{
+      position:relative;
+
+      z-index:2;
+
+      width:100%;
+      height:100%;
+
+      display:block;
+
+      object-fit:cover;
+
+      border-radius:inherit;
+    }
+
+
+    @keyframes logoEntry{
+
+      from{
+        opacity:0;
+        transform:
+          translateY(14px)
+          scale(.78);
+      }
+
+      to{
+        opacity:1;
+        transform:
+          translateY(0)
+          scale(1);
+      }
+
+    }
+
+
+    @keyframes glowPulse{
+
+      0%,
+      100%{
+        opacity:.65;
+        transform:scale(.95);
+      }
+
+      50%{
+        opacity:1;
+        transform:scale(1.08);
+      }
+
+    }
+
+
+    @keyframes logoShine{
+
+      0%,
+      55%{
+        transform:
+          translateX(-100%)
+          rotate(-12deg);
+      }
+
+      75%,
+      100%{
+        transform:
+          translateX(100%)
+          rotate(-12deg);
+      }
+
+    }
+
+
+    /* =========================================================
+       BRAND
+    ========================================================= */
+
+    .brand{
+      margin-top:24px;
+
+      animation:
+        contentEntry .7s .12s ease both;
+    }
+
+
+    .app-name{
+      font-size:26px;
+      line-height:1.15;
+
+      font-weight:800;
+
+      letter-spacing:-.7px;
+
+      color:#fff;
+    }
+
+
+    .app-name span{
+      color:#9b73ff;
+    }
+
+
+    .tagline{
+      margin-top:8px;
+
+      font-size:12px;
+      line-height:1.4;
+
+      font-weight:500;
+
+      letter-spacing:.35px;
+
+      color:#777b88;
+    }
+
+
+    @keyframes contentEntry{
+
+      from{
+        opacity:0;
+        transform:translateY(9px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+
+    /* =========================================================
+       STATUS
+    ========================================================= */
+
+    .status-card{
+      width:100%;
+
+      margin-top:36px;
+
+      padding:15px 16px;
+
+      display:flex;
+      align-items:center;
+
+      gap:12px;
+
+      border-radius:16px;
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.018)
+        );
+
+      border:1px solid rgba(255,255,255,.065);
+
+      box-shadow:
+        0 16px 35px rgba(0,0,0,.18),
+        inset 0 1px 0 rgba(255,255,255,.035);
+
+      animation:
+        cardEntry .75s .2s ease both;
+    }
+
+
+    .status-icon{
+      flex:0 0 34px;
+
+      width:34px;
+      height:34px;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      border-radius:11px;
+
+      background:
+        rgba(125,77,255,.11);
+
+      border:1px solid rgba(139,99,255,.12);
+    }
+
+
+    .status-icon svg{
+      width:17px;
+      height:17px;
+
+      stroke:#9c78ff;
+    }
+
+
+    .status-info{
+      min-width:0;
+
+      flex:1;
+
+      text-align:left;
+    }
+
+
+    .status-label{
+      font-size:10px;
+
+      font-weight:600;
+
+      letter-spacing:.5px;
+
+      text-transform:uppercase;
+
+      color:#5f6370;
+    }
+
+
+    .loading-text{
+      margin-top:3px;
+
+      font-size:12px;
+
+      font-weight:600;
+
+      color:#c7c9d1;
+    }
+
+
+    .status-dot{
+      position:relative;
+
+      width:7px;
+      height:7px;
+
+      border-radius:50%;
+
+      background:#9b73ff;
+
+      box-shadow:
+        0 0 0 4px rgba(155,115,255,.08),
+        0 0 13px rgba(155,115,255,.5);
+
+      animation:
+        dotPulse 1.7s ease-in-out infinite;
+    }
+
+
+    @keyframes dotPulse{
+
+      0%,
+      100%{
+        opacity:.55;
+        transform:scale(.9);
+      }
+
+      50%{
+        opacity:1;
+        transform:scale(1);
+      }
+
+    }
+
+
+    @keyframes cardEntry{
+
+      from{
+        opacity:0;
+        transform:translateY(12px);
+      }
+
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+
+    }
+
+
+    /* =========================================================
+       PROGRESS
+    ========================================================= */
+
+    .progress-area{
+      width:100%;
+
+      margin-top:17px;
+
+      animation:
+        contentEntry .75s .3s ease both;
+    }
+
+
+    .loading-track{
+      position:relative;
+
+      width:100%;
+      height:4px;
+
+      overflow:hidden;
+
+      border-radius:20px;
+
+      background:#171922;
+    }
+
+
+    .loading-track::after{
+      content:"";
+
+      position:absolute;
+
+      inset:0;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.04),
+          transparent
+        );
+    }
+
+
+    .loading-bar{
+      position:relative;
+
+      width:0%;
+      height:100%;
+
+      border-radius:20px;
+
+      background:
+        linear-gradient(
+          90deg,
+          #6637dc,
+          #8e60ff,
+          #b28cff
+        );
+
+      box-shadow:
+        0 0 12px rgba(132,83,255,.35);
+
+      animation:
+        loading 2.5s linear forwards;
+    }
+
+
+    .loading-bar::after{
+      content:"";
+
+      position:absolute;
+
+      right:0;
+      top:0;
+
+      width:28px;
+      height:100%;
+
+      background:
+        linear-gradient(
+          90deg,
+          transparent,
+          rgba(255,255,255,.7)
+        );
+
+      filter:blur(2px);
+    }
+
+
+    @keyframes loading{
+
+      from{
+        width:0%;
+      }
+
+      to{
+        width:100%;
+      }
+
+    }
+
+
+    .progress-meta{
+      display:flex;
+      justify-content:space-between;
+
+      margin-top:8px;
+
+      color:#454852;
+
+      font-size:9px;
+
+      font-weight:500;
+
+      letter-spacing:.2px;
+    }
+
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    .footer{
+      position:absolute;
+
+      bottom:25px;
+      left:0;
+      right:0;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      gap:7px;
+
+      color:#3e414a;
+
+      font-size:9px;
+
+      letter-spacing:.45px;
+
+      animation:
+        fadeIn 1s .5s ease both;
+    }
+
+
+    .footer-line{
+      width:18px;
+      height:1px;
+
+      background:#272a32;
+    }
+
+
+    @keyframes fadeIn{
+
+      from{
+        opacity:0;
+      }
+
+      to{
+        opacity:1;
+      }
+
+    }
+
+
+    /* =========================================================
+       SMALL PHONES
+    ========================================================= */
+
+    @media(max-height:620px){
+
+      .logo-wrap,
+      .logo{
+        width:78px;
+        height:78px;
+      }
+
+      .logo{
+        border-radius:23px;
+      }
+
+      .logo::after{
+        border-radius:22px;
+      }
+
+      .brand{
+        margin-top:18px;
+      }
+
+      .app-name{
+        font-size:23px;
+      }
+
+      .status-card{
+        margin-top:25px;
+      }
+
+      .footer{
+        bottom:15px;
+      }
+
+    }
+
+
+  </style>
+
+</head>
+
+
+<body>
+
+  <main class="splash">
+
+    <!-- Ambient background -->
+
+    <div class="ambient one"></div>
+    <div class="ambient two"></div>
+
+
+    <section class="content">
+
+      <!-- Logo -->
+
+      <div class="logo-wrap">
+
+        <div class="logo-glow"></div>
+
+        <div class="logo">
+
+          <!-- C.png replaces the old SVG logo -->
+
+          <img
+            src="C.png"
+            alt="EXBT77 Play Logo">
+
+        </div>
+
+      </div>
+
+
+      <!-- Brand -->
+
+      <div class="brand">
+
+        <div class="app-name">
+          EXBT77 <span>Play</span>
+        </div>
+
+        <div class="tagline">
+          Your account. Your wallet.
+        </div>
+
+      </div>
+
+
+      <!-- Authentication status -->
+
+      <div class="status-card">
+
+        <div class="status-icon">
+
+          <svg
+            fill="none"
+            viewBox="0 0 24 24">
+
+            <path
+              d="M12 3v4"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
+
+            <path
+              d="M7.5 5.5a8 8 0 1 0 9 0"
+              stroke-width="1.8"
+              stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+
+        <div class="status-info">
+
+          <div class="status-label">
+            Secure connection
+          </div>
+
+          <div
+            class="loading-text"
+            id="loadingText">
+
+            Checking account...
+
+          </div>
+
+        </div>
+
+
+        <div class="status-dot"></div>
+
+      </div>
+
+
+      <!-- Loading progress -->
+
+      <div class="progress-area">
+
+        <div class="loading-track">
+
+          <div class="loading-bar"></div>
+
+        </div>
+
+
+        <div class="progress-meta">
+
+          <span>
+            EXBT77 SYSTEM
+          </span>
+
+          <span>
+            SECURE
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <div class="footer">
+
+      <span class="footer-line"></span>
+
+      <span>
+        POWERED BY EXBT77
+      </span>
+
+      <span class="footer-line"></span>
+
+    </div>
+
+  </main>
+
+
+  <script type="module">
+
+    import {
+      initializeApp
+    } from
+      "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+
+    import {
+      getAuth,
+      onAuthStateChanged,
+      setPersistence,
+      browserLocalPersistence
+    } from
+      "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+
+    const firebaseConfig = {
+
+      apiKey:
+        "AIzaSyCVtqUM2jaawhWRzxwiK9cwUUxlH_LyB8",
+
+      authDomain:
+        "exbt77-play.firebaseapp.com",
+
+      databaseURL:
+        "https://exbt77-play-default-rtdb.firebaseio.com",
+
+      projectId:
+        "exbt77-play",
+
+      storageBucket:
+        "exbt77-play.firebasestorage.app",
+
+      messagingSenderId:
+        "150332377686",
+
+      appId:
+        "1:150332377686:web:9dbd97caecb7484a8089f7",
+
+      measurementId:
+        "G-SR45LCFH98"
+
+    };
+
+
+    const app =
+      initializeApp(firebaseConfig);
+
+
+    const auth =
+      getAuth(app);
+
+
+    const loadingText =
+      document.getElementById(
+        "loadingText"
+      );
+
+
+    /*
+      Keep Firebase authentication
+      session in browser storage.
+    */
+
+    setPersistence(
+      auth,
+      browserLocalPersistence
+    )
+    .then(() => {
+
+      onAuthStateChanged(
+        auth,
+        user => {
+
+          if(user){
+
+            loadingText.textContent =
+              "Welcome back...";
+
+
+            /*
+              Existing session:
+              go directly to Home.
+            */
+
+            setTimeout(() => {
+
+              location.replace(
+                "home.html"
+              );
+
+            },500);
+
+          }
+
+          else{
+
+            loadingText.textContent =
+              "Opening login...";
+
+
+            /*
+              No session:
+              show Login.
+            */
+
+            setTimeout(() => {
+
+              location.replace(
+                "login.html"
+              );
+
+            },2500);
+
+          }
+
+        }
+      );
+
+    })
+    .catch(error => {
+
+      console.error(
+        "Firebase persistence error:",
+        error
+      );
+
+      location.replace(
+        "login.html"
+      );
+
+    });
+
+
+    document.addEventListener(
+      "contextmenu",
+      event => {
+        event.preventDefault();
+      }
+    );
+
+
+    document.addEventListener(
+      "selectstart",
+      event => {
+        event.preventDefault();
+      }
+    );
+
+  </script>
+
+</body>
+</html>

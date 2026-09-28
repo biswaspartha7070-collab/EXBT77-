@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0c0d13">
+<title>Shooting Game • EXBT77 Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  color-scheme:dark;
+  --bg:#090a0f;
+  --line:rgba(255,255,255,.075);
+  --text:#f7f6fb;
+  --muted:#9293a2;
+  --purple:#a88aff;
+  --purple-bright:#b69bff;
+  --green:#5de2a2;
+  --red:#ff6262;
+  --gold:#ffb84d;
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+  --safe-top:env(safe-area-inset-top, 0px);
+}
+
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+html{
+  height:100%;width:100%;
+  overflow:hidden !important;
+  overscroll-behavior:none !important;
+  position:fixed !important;
+  background:var(--bg);
+  -webkit-text-size-adjust:100%;
+  touch-action:none;
+}
+body{
+  position:fixed !important;inset:0 !important;
+  width:100% !important;height:100% !important;
+  overflow:hidden !important;
+  overscroll-behavior:none !important;
+  margin:0;padding:0;color:var(--text);
+  background:
+    radial-gradient(ellipse at 50% -20%, rgba(121,83,207,.2), transparent 48%),
+    radial-gradient(ellipse at 50% 110%, rgba(168,138,255,.08), transparent 50%),
+    linear-gradient(180deg, #0c0d13 0%, var(--bg) 52%);
+  font-family:'DM Sans',Inter,Roboto,system-ui,-apple-system,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  touch-action:manipulation;
+}
+button,a{font:inherit;-webkit-tap-highlight-color:transparent;}
+button{color:inherit;border:0;background:none;cursor:pointer;}
+a{color:inherit;text-decoration:none;}
+
+.app{position:fixed;inset:0;display:flex;flex-direction:column;overflow:hidden;}
+
+/* HEADER */
+.header{
+  flex-shrink:0;width:100%;height:60px;
+  padding:env(safe-area-inset-top) 16px 0;
+  background:rgba(10,11,16,.85);
+  border-bottom:1px solid rgba(255,255,255,.055);
+  backdrop-filter:saturate(150%) blur(22px);
+  -webkit-backdrop-filter:saturate(150%) blur(22px);
+  z-index:50;
+}
+.header-inner{
+  width:100%;max-width:540px;margin:0 auto;height:60px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.brand{display:flex;align-items:center;gap:10px;}
+.brand-logo{
+  display:grid;place-items:center;width:36px;height:36px;
+  border:1px solid rgba(255,255,255,.2);border-radius:12px;
+  background:linear-gradient(145deg,#a17aff 0%,#7042e6 80%);
+  box-shadow:0 7px 22px rgba(119,78,239,.28),inset 0 1px 0 rgba(255,255,255,.2);
+  flex-shrink:0;
+}
+.brand-logo svg{width:20px;height:20px;stroke:#fff;}
+.brand-name{font-size:14.5px;font-weight:750;letter-spacing:-.2px;}
+.header-right{display:flex;align-items:center;gap:8px;}
+
+.sound-toggle{
+  width:36px;height:36px;border-radius:11px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.045);
+  display:grid;place-items:center;transition:.18s;flex-shrink:0;
+}
+.sound-toggle:active{transform:scale(.92);}
+.sound-toggle svg{width:17px;height:17px;stroke:#e0deea;fill:none;stroke-width:1.9;}
+.sound-toggle.muted svg{stroke:#5a6272;}
+
+.header-balance{
+  padding:7px 12px;border-radius:11px;
+  background:rgba(20,43,34,.85);
+  border:1px solid rgba(93,226,162,.2);
+  display:flex;align-items:center;gap:6px;
+}
+.header-balance svg{width:12px;height:12px;stroke:var(--green);fill:none;stroke-width:2.2;}
+.header-balance-text{
+  font-size:12.5px;font-weight:850;color:var(--green);
+  letter-spacing:-.3px;font-variant-numeric:tabular-nums;
+}
+
+/* MAIN */
+.main{
+  flex:1;min-height:0;
+  overflow-y:auto;overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+  padding:18px 18px 100px;
+  scrollbar-width:none;overscroll-behavior:contain;
+}
+.main::-webkit-scrollbar{display:none;}
+.container{width:100%;max-width:540px;margin:0 auto;}
+
+/* GAME HEADER */
+.game-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;}
+.game-title{
+  font-size:22px;font-weight:900;letter-spacing:-.5px;
+  background:linear-gradient(135deg,#fff,#ffb84d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.game-subtitle{color:var(--muted);font-size:10.5px;font-weight:600;letter-spacing:.4px;margin-top:2px;}
+.game-exit-btn{
+  padding:9px 13px;border-radius:11px;
+  border:1px solid rgba(255,98,98,.25);
+  background:rgba(255,98,98,.10);color:var(--red);
+  font-size:11.5px;font-weight:750;
+  display:flex;align-items:center;gap:6px;transition:.18s;
+}
+.game-exit-btn:active{transform:scale(.95);}
+.game-exit-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+/* SHOOTING ARENA */
+.shoot-scene{
+  position:relative;width:100%;max-width:400px;
+  margin:0 auto 16px;aspect-ratio:4/5;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(168,138,255,.14), transparent 60%),
+    linear-gradient(180deg, #1a1530 0%, #0f131a 100%);
+  border:1px solid rgba(168,138,255,.22);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.5),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  overflow:hidden;
+  isolation:isolate;
+  touch-action:none;
+}
+.shoot-scene::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(168,138,255,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(168,138,255,.06) 1px, transparent 1px);
+  background-size:40px 40px;
+  pointer-events:none;
+}
+.shoot-scene::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%);
+  pointer-events:none;z-index:1;
+}
+
+/* HUD — 3 counters */
+.hud{
+  position:absolute;top:12px;left:12px;right:12px;
+  display:flex;justify-content:space-between;align-items:flex-start;
+  z-index:5;pointer-events:none;
+  gap:6px;
+}
+.hud-item{
+  padding:7px 10px;border-radius:11px;
+  background:rgba(9,10,15,.8);
+  border:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  flex:1;
+  text-align:center;
+}
+.hud-label{font-size:8px;font-weight:700;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;margin-bottom:2px;}
+.hud-value{font-size:14px;font-weight:900;letter-spacing:-.4px;font-variant-numeric:tabular-nums;}
+.hud-value.gold{color:var(--gold);}
+.hud-value.green{color:var(--green);}
+.hud-value.red{color:var(--red);}
+
+/* Targets */
+.target{
+  position:absolute;
+  width:64px;height:64px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle, #fff 0%, #fff 18%, var(--red) 18%, var(--red) 38%, #fff 38%, #fff 58%, var(--red) 58%, var(--red) 78%, #fff 78%);
+  box-shadow:0 0 22px rgba(255,98,98,.7), inset 0 0 8px rgba(0,0,0,.35);
+  cursor:crosshair;
+  z-index:3;
+  transform:translate(-50%,-50%);
+  animation:targetPop .35s cubic-bezier(.34,1.56,.64,1);
+  will-change:transform,opacity;
+  -webkit-user-select:none;user-select:none;
+}
+@keyframes targetPop{
+  from{opacity:0;transform:translate(-50%,-50%) scale(.3);}
+  to{opacity:1;transform:translate(-50%,-50%) scale(1);}
+}
+.target.hit{
+  animation:hitPop .28s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes hitPop{
+  0%{transform:translate(-50%,-50%) scale(1);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(1.9);opacity:0;}
+}
+
+/* Floating +৳ / -৳ popup */
+.float-popup{
+  position:absolute;
+  font-size:15px;
+  font-weight:900;
+  letter-spacing:-.3px;
+  pointer-events:none;
+  z-index:7;
+  transform:translate(-50%,-50%);
+  animation:floatUp 1s ease-out forwards;
+  text-shadow:0 2px 8px rgba(0,0,0,.6);
+  font-variant-numeric:tabular-nums;
+}
+.float-popup.plus{color:var(--green);}
+.float-popup.minus{color:var(--red);}
+@keyframes floatUp{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.6);}
+  20%{opacity:1;transform:translate(-50%,-80%) scale(1.15);}
+  100%{opacity:0;transform:translate(-50%,-180%) scale(1);}
+}
+
+/* Hit particle */
+.hit-marker{
+  position:absolute;
+  width:40px;height:40px;
+  pointer-events:none;z-index:4;
+  transform:translate(-50%,-50%);
+  animation:hitMark .5s ease-out forwards;
+}
+.hit-marker::before,.hit-marker::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:2px solid var(--gold);
+}
+.hit-marker::after{border-color:#fff;animation:ringOut .5s ease-out forwards;}
+@keyframes hitMark{
+  0%{transform:translate(-50%,-50%) scale(.3);opacity:1;}
+  100%{transform:translate(-50%,-50%) scale(1.4);opacity:0;}
+}
+@keyframes ringOut{
+  0%{transform:scale(.6);opacity:1;}
+  100%{transform:scale(1.6);opacity:0;}
+}
+
+.shoot-scene.idle{cursor:crosshair;}
+
+/* Crosshair overlay */
+.crosshair{
+  position:absolute;
+  width:36px;height:36px;
+  pointer-events:none;
+  z-index:6;
+  transform:translate(-50%,-50%);
+  opacity:0;
+  transition:opacity .15s ease;
+}
+.crosshair::before,.crosshair::after{
+  content:"";position:absolute;background:var(--red);
+  box-shadow:0 0 8px rgba(255,98,98,.9);
+}
+.crosshair::before{top:50%;left:0;right:0;height:2px;transform:translateY(-50%);}
+.crosshair::after{left:50%;top:0;bottom:0;width:2px;transform:translateX(-50%);}
+.crosshair.show{opacity:1;}
+
+/* Ready overlay */
+.ready-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(9,10,15,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  z-index:10;gap:16px;padding:24px;text-align:center;
+  transition:opacity .3s ease,visibility .3s ease;
+}
+.ready-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.ready-icon{
+  width:80px;height:80px;border-radius:24px;
+  background:linear-gradient(135deg,#ffb84d,#ff7a3d);
+  display:grid;place-items:center;
+  box-shadow:0 15px 40px rgba(255,140,60,.5);
+}
+.ready-icon svg{width:42px;height:42px;stroke:#fff;fill:none;stroke-width:1.9;}
+.ready-title{font-size:22px;font-weight:900;letter-spacing:-.5px;}
+.ready-sub{color:var(--muted);font-size:12.5px;line-height:1.5;max-width:280px;}
+
+/* RESULT BOX */
+.result-box{
+  padding:16px 20px;border-radius:18px;
+  background:linear-gradient(145deg,rgba(25,27,37,.98),rgba(16,17,24,.98));
+  border:1px solid var(--line);
+  text-align:center;margin-bottom:14px;min-height:88px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  transition:border-color .4s ease,background .4s ease,box-shadow .4s ease;
+}
+.result-box.win{
+  border-color:rgba(93,226,162,.4);
+  background:linear-gradient(145deg,rgba(20,40,30,.98),rgba(16,25,20,.98));
+  box-shadow:0 8px 30px rgba(93,226,162,.15);
+}
+.result-box.lose{
+  border-color:rgba(255,98,98,.4);
+  background:linear-gradient(145deg,rgba(40,20,20,.98),rgba(25,16,16,.98));
+  box-shadow:0 8px 30px rgba(255,98,98,.15);
+}
+.result-label{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:6px;}
+.result-value{
+  font-size:32px;font-weight:900;letter-spacing:-1.2px;
+  color:var(--purple-bright);line-height:1;font-variant-numeric:tabular-nums;
+}
+.result-box.win .result-value{color:var(--green);text-shadow:0 0 18px rgba(93,226,162,.5);}
+.result-box.lose .result-value{color:var(--red);text-shadow:0 0 18px rgba(255,98,98,.5);}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px;}
+.stat-mini{padding:11px 8px;border-radius:13px;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.05);text-align:center;}
+.stat-mini-label{color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-bottom:4px;}
+.stat-mini-value{font-size:13.5px;font-weight:850;letter-spacing:-.3px;font-variant-numeric:tabular-nums;color:var(--purple-bright);}
+.stat-mini-value.green{color:var(--green);}
+.stat-mini-value.red{color:var(--red);}
+.stat-mini-value.gold{color:var(--gold);}
+
+/* SPIN / START BUTTON */
+.spin-btn{
+  width:100%;height:58px;border-radius:17px;
+  background:linear-gradient(135deg,#ffb84d,#ff7a3d);
+  color:#fff;font-size:15px;font-weight:900;letter-spacing:.6px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 10px 28px rgba(255,140,60,.55),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .16s ease,opacity .16s ease;
+  touch-action:manipulation;
+}
+.spin-btn:active:not(:disabled){transform:scale(.97);}
+.spin-btn:disabled{opacity:.5;cursor:not-allowed;filter:grayscale(.4);}
+.spin-btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2.4;}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;z-index:100;left:50%;bottom:calc(10px + var(--safe-bottom));
+  display:flex;align-items:center;justify-content:space-around;
+  width:min(calc(100% - 20px),520px);min-height:70px;
+  padding:5px 5px calc(5px + var(--safe-bottom));
+  transform:translateX(-50%);
+  border:1px solid rgba(255,255,255,.105);border-radius:22px;
+  background:rgba(21,22,30,.92);
+  box-shadow:0 15px 42px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.055);
+  backdrop-filter:saturate(160%) blur(25px);
+  -webkit-backdrop-filter:saturate(160%) blur(25px);
+}
+.nav-item{
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px;
+  width:25%;min-width:0;min-height:58px;padding:3px 0;border-radius:15px;
+  color:#9293a1;font-size:9.5px;font-weight:550;
+  transition:color .16s ease;touch-action:manipulation;
+}
+.nav-item:active{background:rgba(255,255,255,.055);}
+.nav-icon{display:grid;place-items:center;width:30px;height:28px;border-radius:10px;}
+.nav-icon svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.8;fill:none;}
+.nav-item.active{color:#c1a8ff;font-weight:650;}
+.nav-item.active .nav-icon{background:rgba(164,126,255,.13);}
+
+/* INTRO OVERLAY */
+.intro-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(9,10,15,.98);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  transition:opacity .4s ease,visibility .4s ease;overflow-y:auto;
+}
+.intro-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.intro-box{
+  width:100%;max-width:400px;padding:32px 26px;border-radius:28px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255,184,77,.15), transparent 60%),
+    linear-gradient(145deg,#1a1530,#0f131a);
+  border:1px solid rgba(255,184,77,.25);
+  box-shadow:0 30px 100px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.08);
+  text-align:center;margin:auto;
+}
+.intro-icon{
+  width:100px;height:100px;margin:0 auto 22px;border-radius:30px;
+  background:
+    radial-gradient(circle at 30% 20%, #ffd89a, transparent 50%),
+    linear-gradient(135deg,#ffb84d,#ff7a3d);
+  display:grid;place-items:center;
+  box-shadow:0 20px 50px rgba(255,140,60,.55),inset 0 2px 0 rgba(255,255,255,.3),inset 0 -4px 10px rgba(0,0,0,.3);
+}
+.intro-icon svg{width:54px;height:54px;stroke:#fff;fill:none;stroke-width:1.7;}
+.intro-title{
+  font-size:28px;font-weight:900;letter-spacing:-.8px;margin-bottom:6px;
+  background:linear-gradient(135deg,#fff,#ffb84d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.intro-sub{color:var(--muted);font-size:12.5px;font-weight:500;margin-bottom:24px;}
+.intro-rules{
+  padding:16px;border-radius:16px;background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.06);margin-bottom:22px;text-align:left;
+}
+.intro-rules-title{
+  color:var(--gold);font-size:11px;font-weight:800;letter-spacing:.5px;
+  text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.intro-rules-title svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;}
+.intro-rule{
+  display:flex;align-items:center;gap:9px;padding:6px 0;
+  color:#c4ccd8;font-size:12px;line-height:1.5;font-weight:500;
+}
+.intro-rule svg{
+  width:15px;height:15px;stroke:var(--green);fill:none;stroke-width:2.5;
+  flex-shrink:0;padding:2px;background:rgba(93,226,162,.1);border-radius:50%;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.intro-play-btn{
+  width:100%;height:56px;border-radius:16px;
+  background:linear-gradient(135deg,#ffb84d,#ff7a3d);
+  color:#fff;font-size:15px;font-weight:900;letter-spacing:.6px;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 12px 32px rgba(255,140,60,.55),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .18s ease;touch-action:manipulation;
+}
+.intro-play-btn:active{transform:scale(.97);}
+.intro-play-btn svg{width:20px;height:20px;fill:#fff;stroke:none;}
+
+/* SUMMARY MODAL */
+.summary-overlay{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(9,10,15,.96);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+.summary-overlay.show{display:flex;}
+.summary-box{
+  width:100%;max-width:400px;padding:30px 24px;border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(168,138,255,.15), transparent 60%),
+    linear-gradient(145deg,#1a1530,#0f131a);
+  border:1px solid rgba(168,138,255,.25);
+  box-shadow:0 30px 100px rgba(0,0,0,.8);
+  text-align:center;margin:auto;
+  animation:modalIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+
+.summary-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 14px;border-radius:99px;
+  font-size:11px;font-weight:850;letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.summary-badge.win{
+  background:rgba(93,226,162,.15);border:1px solid rgba(93,226,162,.4);color:var(--green);
+}
+.summary-badge.lose{
+  background:rgba(255,98,98,.15);border:1px solid rgba(255,98,98,.4);color:var(--red);
+}
+.summary-badge svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.4;}
+
+.summary-icon{
+  width:84px;height:84px;margin:0 auto 18px;border-radius:26px;
+  display:grid;place-items:center;
+}
+.summary-icon.win{
+  background:linear-gradient(135deg,rgba(93,226,162,.18),rgba(93,226,162,.06));
+  border:1px solid rgba(93,226,162,.35);
+  box-shadow:0 12px 36px rgba(93,226,162,.3);
+}
+.summary-icon.lose{
+  background:linear-gradient(135deg,rgba(255,98,98,.18),rgba(255,98,98,.06));
+  border:1px solid rgba(255,98,98,.35);
+  box-shadow:0 12px 36px rgba(255,98,98,.3);
+}
+.summary-icon svg{width:40px;height:40px;stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.summary-icon.win svg{stroke:var(--green);}
+.summary-icon.lose svg{stroke:var(--red);}
+.summary-title{font-size:24px;font-weight:900;letter-spacing:-.5px;margin-bottom:5px;}
+.summary-title.win{color:var(--green);}
+.summary-title.lose{color:var(--red);}
+.summary-sub{color:var(--muted);font-size:12.5px;font-weight:500;margin-bottom:22px;}
+.summary-stats{
+  padding:16px;border-radius:16px;background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.06);margin-bottom:14px;text-align:left;
+}
+.summary-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px;
+}
+.summary-row:last-child{border-bottom:0;}
+.summary-row-label{color:var(--muted);font-weight:600;font-size:12px;}
+.summary-row-value{font-weight:850;font-variant-numeric:tabular-nums;letter-spacing:-.2px;}
+.summary-row-value.green{color:var(--green);}
+.summary-row-value.red{color:var(--red);}
+.summary-row-value.purple{color:var(--purple-bright);}
+.summary-row-value.gold{color:var(--gold);}
+
+/* Net result banner */
+.net-result{
+  padding:14px 16px;border-radius:14px;margin-bottom:16px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.net-result.win{
+  background:linear-gradient(135deg, rgba(93,226,162,.18), rgba(93,226,162,.06));
+  border:1px solid rgba(93,226,162,.35);
+}
+.net-result.lose{
+  background:linear-gradient(135deg, rgba(255,98,98,.18), rgba(255,98,98,.06));
+  border:1px solid rgba(255,98,98,.35);
+}
+.net-result-label{
+  font-size:11px;font-weight:750;letter-spacing:.3px;text-transform:uppercase;
+}
+.net-result.win .net-result-label{color:var(--green);}
+.net-result.lose .net-result-label{color:var(--red);}
+.net-result-value{
+  font-size:19px;font-weight:900;letter-spacing:-.5px;font-variant-numeric:tabular-nums;
+}
+.net-result.win .net-result-value{color:var(--green);}
+.net-result.lose .net-result-value{color:var(--red);}
+
+/* Balance comparison */
+.balance-compare{
+  padding:16px;border-radius:16px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.06);
+  margin-bottom:18px;
+}
+.balance-compare-title{
+  color:var(--purple-bright);font-size:10.5px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:12px;
+  display:flex;align-items:center;gap:6px;
+}
+.balance-compare-title svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.2;}
+.balance-arrow{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+}
+.balance-box{
+  flex:1;padding:11px 8px;border-radius:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+  text-align:center;
+}
+.balance-box-label{
+  color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.4px;
+  text-transform:uppercase;margin-bottom:5px;
+}
+.balance-box-value{
+  font-size:15px;font-weight:900;letter-spacing:-.4px;font-variant-numeric:tabular-nums;
+}
+.balance-box-value.old{color:#c4ccd8;}
+.balance-box-value.new{color:var(--green);}
+.balance-arrow-icon{
+  flex-shrink:0;width:26px;height:26px;display:grid;place-items:center;
+  border-radius:50%;background:rgba(168,138,255,.12);
+}
+.balance-arrow-icon svg{width:14px;height:14px;stroke:var(--purple-bright);fill:none;stroke-width:2.4;}
+
+/* Buttons */
+.summary-btn-row{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.summary-home-btn{
+  width:100%;height:52px;border-radius:15px;
+  background:linear-gradient(135deg,#a17aff,#7042e6);
+  color:#fff;font-size:14px;font-weight:900;letter-spacing:.5px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 12px 32px rgba(119,78,239,.55),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .18s ease;touch-action:manipulation;
+}
+.summary-home-btn:active{transform:scale(.97);}
+.summary-home-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+.wallet-btn{
+  width:100%;height:52px;border-radius:15px;
+  background:linear-gradient(135deg,#5de2a2,#25a96c);
+  color:#fff;font-size:14px;font-weight:900;letter-spacing:.5px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 12px 32px rgba(93,226,162,.45),inset 0 1px 0 rgba(255,255,255,.25);
+  transition:transform .18s ease;touch-action:manipulation;
+}
+.wallet-btn:active{transform:scale(.97);}
+.wallet-btn svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+/* TOAST */
+.toast{
+  position:fixed;z-index:400;left:50%;bottom:calc(96px + var(--safe-bottom));
+  max-width:calc(100vw - 36px);padding:11px 16px;
+  transform:translate(-50%,12px);
+  border:1px solid var(--line);border-radius:14px;color:var(--text);
+  background:rgba(31,32,42,.96);font-size:12px;font-weight:600;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+.toast.show{transform:translate(-50%,0);opacity:1;}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <header class="header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg fill="none" viewBox="0 0 24 24">
+            <path d="M7 4h10l3 5-8 11L4 9l3-5z" stroke-width="1.8" stroke-linejoin="round"/>
+            <path d="M4 9h16M7 4l5 5 5-5" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-name">EXBT77 Play</div>
+      </div>
+
+      <div class="header-right">
+        <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+            <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+            <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+          </svg>
+        </button>
+        <div class="header-balance">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6" stroke-linecap="round"/></svg>
+          <span class="header-balance-text" id="headerBalance">৳0.00</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="container">
+
+      <div class="game-header">
+        <div>
+          <div class="game-title">Shooting</div>
+          <div class="game-subtitle">HIT +৳0.01 • MISS −৳1.00</div>
+        </div>
+        <button class="game-exit-btn" id="exitBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 18l6-6-6-6"/>
+          </svg>
+          Exit
+        </button>
+      </div>
+
+      <div class="shoot-scene" id="shootScene">
+        <div class="hud">
+          <div class="hud-item">
+            <div class="hud-label">Time</div>
+            <div class="hud-value gold" id="hudTime">30s</div>
+          </div>
+          <div class="hud-item">
+            <div class="hud-label">Income</div>
+            <div class="hud-value green" id="hudIncome">৳0.00</div>
+          </div>
+          <div class="hud-item">
+            <div class="hud-label">Loss</div>
+            <div class="hud-value red" id="hudLoss">৳0.00</div>
+          </div>
+        </div>
+
+        <div class="crosshair" id="crosshair"></div>
+
+        <div class="ready-overlay" id="readyOverlay">
+          <div class="ready-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/>
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 1v4M12 19v4M1 12h4M19 12h4"/>
+            </svg>
+          </div>
+          <div class="ready-title">Ready?</div>
+          <div class="ready-sub">হিট করলে +৳0.01 • মিস করলে −৳1.00</div>
+          <button class="spin-btn" style="max-width:220px" id="startBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 3l14 9-14 9V3z"/>
+            </svg>
+            START
+          </button>
+        </div>
+      </div>
+
+      <div class="result-box" id="resultBox">
+        <div class="result-label">Net Income (so far)</div>
+        <div class="result-value" id="resultValue">৳0.00</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-mini">
+          <div class="stat-mini-label">Hits</div>
+          <div class="stat-mini-value green" id="statHits">0</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Misses</div>
+          <div class="stat-mini-value red" id="statMiss">0</div>
+        </div>
+        <div class="stat-mini">
+          <div class="stat-mini-label">Accuracy</div>
+          <div class="stat-mini-value gold" id="statAcc">0%</div>
+        </div>
+      </div>
+
+      <button class="spin-btn" id="playBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 3l14 9-14 9V3z"/>
+        </svg>
+        PLAY AGAIN
+      </button>
+
+    </div>
+  </main>
+
+  <nav class="bottom-nav">
+    <a class="nav-item" href="home.html">
+      <div class="nav-icon">
+        <svg fill="none" viewBox="0 0 24 24"><path d="M3.5 10.5L12 3.5l8.5 7v8a1.5 1.5 0 0 1-1.5 1.5h-14a1.5 1.5 0 0 1-1.5-1.5v-8z" stroke-linejoin="round"/><path d="M9 20v-6h6v6" stroke-linejoin="round"/></svg>
+      </div>
+      Home
+    </a>
+    <a class="nav-item" href="transactions.html">
+      <div class="nav-icon">
+        <svg fill="none" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" stroke-linejoin="round"/><path d="M3 9h18" stroke-linecap="round"/><path d="M8 14h4" stroke-linecap="round"/></svg>
+      </div>
+      Activity
+    </a>
+    <a class="nav-item" href="wallet.html">
+      <div class="nav-icon">
+        <svg fill="none" viewBox="0 0 24 24"><path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v11A2.5 2.5 0 0 1 18.5 21h-13A2.5 2.5 0 0 1 3 18.5v-11z" stroke-linejoin="round"/><path d="M16 13h5" stroke-linecap="round"/></svg>
+      </div>
+      Wallet
+    </a>
+    <a class="nav-item" href="profile.html">
+      <div class="nav-icon">
+        <svg fill="none" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" stroke-linejoin="round"/><path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6" stroke-linecap="round"/></svg>
+      </div>
+      Profile
+    </a>
+  </nav>
+
+</div>
+
+<!-- INTRO OVERLAY -->
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-box">
+    <div class="intro-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="9"/>
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 1v3M12 20v3M1 12h3M20 12h3"/>
+      </svg>
+    </div>
+    <div class="intro-title">Shooting Game</div>
+    <div class="intro-sub">টার্গেটে গুলি করে ইনকাম করুন, মিস করলে কাটা যাবে</div>
+
+    <div class="intro-rules">
+      <div class="intro-rules-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>
+        </svg>
+        How to Play
+      </div>
+      <div class="intro-rule">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <span>প্রতিটি <b>হিট</b>-এ পাবেন <b style="color:#5de2a2">+৳0.01</b></span>
+      </div>
+      <div class="intro-rule">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <span>প্রতিটি <b>মিস</b>-এ কাটা যাবে <b style="color:#ff6262">−৳1.00</b></span>
+      </div>
+      <div class="intro-rule">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <span>মোট সময় <b>৩০ সেকেন্ড</b></span>
+      </div>
+      <div class="intro-rule">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+        <span>Exit করলে দেখাবে কত <b>ইনকাম</b> ও কত <b>লস</b></span>
+      </div>
+    </div>
+
+    <button class="intro-play-btn" id="introPlayBtn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      PLAY NOW
+    </button>
+  </div>
+</div>
+
+<!-- SUMMARY MODAL -->
+<div class="summary-overlay" id="summaryOverlay">
+  <div class="summary-box">
+
+    <div class="summary-badge" id="summaryBadge"></div>
+
+    <div class="summary-icon" id="summaryIcon"></div>
+
+    <div class="summary-title" id="summaryTitle">Game Over</div>
+    <div class="summary-sub" id="summarySub">Here is your result</div>
+
+    <!-- Income / Loss -->
+    <div class="summary-stats">
+      <div class="summary-row">
+        <div class="summary-row-label">Total Hits</div>
+        <div class="summary-row-value green" id="sumHits">0</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Total Misses</div>
+        <div class="summary-row-value red" id="sumMiss">0</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Income (Hits × ৳0.01)</div>
+        <div class="summary-row-value green" id="sumIncome">+৳0.00</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Loss (Misses × ৳1.00)</div>
+        <div class="summary-row-value red" id="sumLoss">-৳0.00</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Accuracy</div>
+        <div class="summary-row-value purple" id="sumAcc">0%</div>
+      </div>
+    </div>
+
+    <!-- Net Result -->
+    <div class="net-result" id="netResult">
+      <div class="net-result-label" id="netResultLabel">Net Income</div>
+      <div class="net-result-value" id="netResultValue">৳0.00</div>
+    </div>
+
+    <!-- Balance Comparison -->
+    <div class="balance-compare">
+      <div class="balance-compare-title">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v11A2.5 2.5 0 0 1 18.5 21h-13A2.5 2.5 0 0 1 3 18.5v-11z"/>
+          <path d="M16 13h5"/>
+        </svg>
+        Wallet Balance
+      </div>
+      <div class="balance-arrow">
+        <div class="balance-box">
+          <div class="balance-box-label">Before</div>
+          <div class="balance-box-value old" id="balanceBefore">৳0.00</div>
+        </div>
+        <div class="balance-arrow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+        <div class="balance-box">
+          <div class="balance-box-label">After</div>
+          <div class="balance-box-value new" id="balanceAfter">৳0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="summary-btn-row">
+      <button class="wallet-btn" onclick="location.href='wallet.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v11A2.5 2.5 0 0 1 18.5 21h-13A2.5 2.5 0 0 1 3 18.5v-11z"/>
+          <path d="M16 13h5"/>
+        </svg>
+        Wallet
+      </button>
+      <button class="summary-home-btn" onclick="location.href='home.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 10.5L12 3.5l8.5 7v8a1.5 1.5 0 0 1-1.5 1.5h-14a1.5 1.5 0 0 1-1.5-1.5v-8z"/>
+        </svg>
+        Home
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { getDatabase, ref, get, update, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVuTqUM2jaawhWRzxWiK9cwUUxlH_LyB8",
+  authDomain: "exbt77-play.firebaseapp.com",
+  databaseURL: "https://exbt77-play-default-rtdb.firebaseio.com",
+  projectId: "exbt77-play",
+  storageBucket: "exbt77-play.firebasestorage.app",
+  messagingSenderId: "150332377686",
+  appId: "1:150332377686:web:9dbd97caecb7484a8089f7"
+};
+
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+setPersistence(auth, browserLocalPersistence).catch(err => console.error(err));
+
+/* =========================================================
+   🎮 GAME CONFIG
+   ---------------------------------------------------------
+   HIT পেলে যা যোগ হবে (৳0.01 = ১ পয়সা)
+   MISS হলে যা কাটা হবে (৳1.00 = ১ টাকা)
+   ========================================================= */
+const HIT_REWARD   = 0.01;   // প্রতি হিটে +৳0.01
+const MISS_PENALTY = 1.00;   // প্রতি মিসে −৳1.00
+const GAME_DURATION = 30;    // সেকেন্ড
+const GAME_ID       = "shooting";
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function money(v){
+  return Number(v || 0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(window.__t);
+  window.__t = setTimeout(() => el.classList.remove("show"), 2600);
+}
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let currentUser = null;
+let userBalance = 0;
+let hits = 0, misses = 0, shots = 0;
+let income = 0;     // hits × HIT_REWARD
+let loss = 0;       // misses × MISS_PENALTY
+let net = 0;        // income - loss
+let timeLeft = GAME_DURATION;
+let running = false;
+let spawnTimer = null;
+let countdownTimer = null;
+let soundOn = true;
+let balanceBefore = 0;
+let balanceAfter = 0;
+
+const scene = document.getElementById("shootScene");
+const startBtn = document.getElementById("startBtn");
+const playBtn = document.getElementById("playBtn");
+const introOverlay = document.getElementById("introOverlay");
+const introPlayBtn = document.getElementById("introPlayBtn");
+const readyOverlay = document.getElementById("readyOverlay");
+const summaryOverlay = document.getElementById("summaryOverlay");
+const crosshair = document.getElementById("crosshair");
+const soundToggle = document.getElementById("soundToggle");
+const exitBtn = document.getElementById("exitBtn");
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+let audioCtx = null;
+function ensureAudio(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(AC) audioCtx = new AC();
+  }
+  if(audioCtx && audioCtx.state === "suspended") audioCtx.resume().catch(()=>{});
+}
+function beep(freq=800, dur=0.06, type="square", vol=0.12){
+  if(!soundOn || !audioCtx) return;
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type;
+  osc.frequency.value = freq;
+  gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start();
+  osc.stop(audioCtx.currentTime + dur);
+}
+function hitSound(){ beep(1200,0.05,"square",0.14); setTimeout(()=>beep(1800,0.04,"square",0.10),40); }
+function missSound(){ beep(180,0.10,"sawtooth",0.14); }
+function winSound(){ [523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,0.10,"triangle",0.13),i*90)); }
+function loseSound(){ [400,320,240].forEach((f,i)=>setTimeout(()=>beep(f,0.12,"sine",0.12),i*110)); }
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+onAuthStateChanged(auth, async (user) => {
+  if(!user){ location.replace("login.html"); return; }
+  currentUser = user;
+  try{
+    const snap = await get(ref(db, "users/" + user.uid));
+    const data = snap.val() || {};
+    userBalance = Number(data.balance || 0);
+    balanceBefore = userBalance;
+    document.getElementById("headerBalance").textContent = "৳" + money(userBalance);
+  }catch(err){ console.error(err); }
+});
+
+/* =========================================================
+   GAME FLOW
+   ========================================================= */
+function resetState(){
+  hits = 0; misses = 0; shots = 0;
+  income = 0; loss = 0; net = 0;
+  timeLeft = GAME_DURATION;
+  balanceBefore = userBalance;
+
+  document.getElementById("hudTime").textContent = GAME_DURATION + "s";
+  document.getElementById("hudIncome").textContent = "৳0.00";
+  document.getElementById("hudLoss").textContent = "৳0.00";
+  document.getElementById("statHits").textContent = "0";
+  document.getElementById("statMiss").textContent = "0";
+  document.getElementById("statAcc").textContent = "0%";
+  document.getElementById("resultValue").textContent = "৳0.00";
+  document.getElementById("resultBox").classList.remove("win","lose");
+
+  scene.querySelectorAll(".target,.hit-marker,.float-popup").forEach(el=>el.remove());
+}
+
+function updateHUD(){
+  document.getElementById("hudIncome").textContent = "৳" + money(income);
+  document.getElementById("hudLoss").textContent = "৳" + money(loss);
+  document.getElementById("statHits").textContent = hits;
+  document.getElementById("statMiss").textContent = misses;
+
+  const acc = shots === 0 ? 0 : Math.round((hits/shots)*100);
+  document.getElementById("statAcc").textContent = acc + "%";
+
+  net = +(income - loss).toFixed(2);
+  document.getElementById("resultValue").textContent = "৳" + money(net);
+
+  const rbox = document.getElementById("resultBox");
+  rbox.classList.remove("win","lose");
+  if(net > 0) rbox.classList.add("win");
+  else if(net < 0) rbox.classList.add("lose");
+}
+
+function spawnTarget(){
+  if(!running) return;
+  const rect = scene.getBoundingClientRect();
+  const size = 64;
+  const pad = size/2 + 60;
+  const x = pad + Math.random() * (rect.width  - pad*2);
+  const y = pad + Math.random() * (rect.height - pad*2);
+
+  const t = document.createElement("div");
+  t.className = "target";
+  t.style.left = x + "px";
+  t.style.top  = y + "px";
+
+  const killTime = 900 + Math.random()*500;
+  const lifeTimer = setTimeout(()=>{
+    if(!t.isConnected) return;
+    if(t.classList.contains("hit")) return;
+    // Target expired = miss
+    t.remove();
+    registerMiss(x, y);
+    if(running) scheduleNext();
+  }, killTime);
+
+  t.addEventListener("pointerdown", (e)=>{
+    e.stopPropagation();
+    if(!running || t.classList.contains("hit")) return;
+    clearTimeout(lifeTimer);
+    t.classList.add("hit");
+    registerHit(x, y);
+    setTimeout(()=>t.remove(), 280);
+  }, {passive:true});
+
+  scene.appendChild(t);
+}
+
+function scheduleNext(){
+  if(!running) return;
+  clearTimeout(spawnTimer);
+  const delay = 320 + Math.random()*380;
+  spawnTimer = setTimeout(()=>{
+    if(!running) return;
+    spawnTarget();
+    if(Math.random() < 0.25) setTimeout(()=>running && spawnTarget(), 120);
+    scheduleNext();
+  }, delay);
+}
+
+function registerHit(x, y){
+  hits++; shots++;
+  income = +(income + HIT_REWARD).toFixed(2);
+  updateHUD();
+  hitSound();
+  showHitMarker(x, y);
+  showFloatPopup(x, y, "+৳" + money(HIT_REWARD), "plus");
+}
+function registerMiss(x, y){
+  misses++; shots++;
+  loss = +(loss + MISS_PENALTY).toFixed(2);
+  updateHUD();
+  missSound();
+  showFloatPopup(x, y, "−৳" + money(MISS_PENALTY), "minus");
+}
+function showHitMarker(x, y){
+  const m = document.createElement("div");
+  m.className = "hit-marker";
+  m.style.left = x + "px";
+  m.style.top  = y + "px";
+  scene.appendChild(m);
+  setTimeout(()=>m.remove(), 500);
+}
+function showFloatPopup(x, y, text, type){
+  const p = document.createElement("div");
+  p.className = "float-popup " + type;
+  p.textContent = text;
+  p.style.left = x + "px";
+  p.style.top  = y + "px";
+  scene.appendChild(p);
+  setTimeout(()=>p.remove(), 1000);
+}
+
+/* Miss when clicking background (empty area) */
+scene.addEventListener("pointerdown", (e)=>{
+  if(!running) return;
+  if(e.target.closest(".target")) return;
+  const rect = scene.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+  registerMiss(x, y);
+});
+
+/* Crosshair for desktop */
+scene.addEventListener("pointermove", (e)=>{
+  const rect = scene.getBoundingClientRect();
+  crosshair.style.left = (e.clientX - rect.left) + "px";
+  crosshair.style.top  = (e.clientY - rect.top)  + "px";
+  crosshair.classList.add("show");
+});
+scene.addEventListener("pointerleave", ()=> crosshair.classList.remove("show"));
+
+/* =========================================================
+   START GAME
+   ========================================================= */
+function startGame(){
+  if(!currentUser){ toast("Please login first"); return; }
+  if(running){ toast("Game already running"); return; }
+
+  resetState();
+  readyOverlay.classList.add("hidden");
+  scene.querySelectorAll(".target").forEach(t=>t.remove());
+
+  running = true;
+  scheduleNext();
+
+  countdownTimer = setInterval(()=>{
+    timeLeft--;
+    document.getElementById("hudTime").textContent = Math.max(0,timeLeft) + "s";
+    if(timeLeft <= 0){
+      endGame();
+    }
+  }, 1000);
+}
+
+/* =========================================================
+   END GAME — apply net to balance, save, show summary
+   ========================================================= */
+async function endGame(){
+  if(!running) return;
+  running = false;
+  clearInterval(countdownTimer);
+  clearTimeout(spawnTimer);
+  scene.querySelectorAll(".target").forEach(t=>t.remove());
+
+  // Final numbers
+  net = +(income - loss).toFixed(2);
+  balanceBefore = userBalance;
+  const newBalance = +(userBalance + net).toFixed(2);
+
+  // Apply net change to Firebase (can be positive or negative)
+  if(currentUser && net !== 0){
+    try{
+      await update(ref(db, "users/" + currentUser.uid), { balance: newBalance });
+      userBalance = newBalance;
+      balanceAfter = newBalance;
+      document.getElementById("headerBalance").textContent = "৳" + money(userBalance);
+    }catch(err){
+      console.error("Balance update error:", err);
+      toast("Could not update balance");
+      balanceAfter = userBalance;
+    }
+  } else {
+    balanceAfter = userBalance;
+  }
+
+  // Save game history
+  if(currentUser){
+    try{
+      await push(ref(db, "users/" + currentUser.uid + "/gameHistory"), {
+        game: GAME_ID,
+        hits, misses,
+        income, loss, net,
+        balanceBefore, balanceAfter,
+        ts: serverTimestamp()
+      });
+    }catch(err){
+      console.error("History save error:", err);
+    }
+  }
+
+  // ====== SUMMARY UI ======
+  document.getElementById("sumHits").textContent   = hits;
+  document.getElementById("sumMiss").textContent   = misses;
+  document.getElementById("sumIncome").textContent = "+৳" + money(income);
+  document.getElementById("sumLoss").textContent   = "-৳" + money(loss);
+  const acc = shots === 0 ? 0 : Math.round((hits/shots)*100);
+  document.getElementById("sumAcc").textContent    = acc + "%";
+
+  // Net banner
+  const netEl    = document.getElementById("netResult");
+  const netLabel = document.getElementById("netResultLabel");
+  const netVal   = document.getElementById("netResultValue");
+  const isProfit = net > 0;
+  const isLoss   = net < 0;
+
+  netEl.className = "net-result " + (isProfit ? "win" : "lose");
+  netLabel.textContent = isProfit ? "Net Income" : (isLoss ? "Net Loss" : "Break Even");
+  netVal.textContent   = (isProfit ? "+৳" : isLoss ? "-৳" : "৳") + money(Math.abs(net));
+
+  document.getElementById("balanceBefore").textContent = "৳" + money(balanceBefore);
+  document.getElementById("balanceAfter").textContent  = "৳" + money(balanceAfter);
+
+  // Badge
+  const badge = document.getElementById("summaryBadge");
+  if(isProfit){
+    badge.className = "summary-badge win";
+    badge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg> PROFIT`;
+  } else if(isLoss){
+    badge.className = "summary-badge lose";
+    badge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg> LOSS`;
+  } else {
+    badge.className = "summary-badge win";
+    badge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg> DRAW`;
+  }
+
+  // Icon + Title + Sub
+  const sIcon  = document.getElementById("summaryIcon");
+  const sTitle = document.getElementById("summaryTitle");
+  const sSub   = document.getElementById("summarySub");
+
+  if(isProfit){
+    sIcon.className = "summary-icon win";
+    sIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>`;
+    sTitle.className = "summary-title win";
+    sTitle.textContent = "You Earned!";
+    sSub.textContent = `আপনি ৳${money(net)} ইনকাম করেছেন`;
+    winSound();
+  } else if(isLoss){
+    sIcon.className = "summary-icon lose";
+    sIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+    sTitle.className = "summary-title lose";
+    sTitle.textContent = "You Lost";
+    sSub.textContent = `আপনি ৳${money(Math.abs(net))} হারিয়েছেন`;
+    loseSound();
+  } else {
+    sIcon.className = "summary-icon win";
+    sIcon.innerHTML = `<svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>`;
+    sTitle.className = "summary-title win";
+    sTitle.textContent = "Break Even";
+    sSub.textContent = `আপনার ইনকাম ও লস সমান`;
+  }
+
+  setTimeout(()=> summaryOverlay.classList.add("show"), 350);
+}
+
+/* =========================================================
+   EXIT BUTTON — show summary mid-game
+   ========================================================= */
+exitBtn.addEventListener("click", async ()=>{
+  if(!running){
+    // Not playing → just go home
+    location.href = "home.html";
+    return;
+  }
+  // Playing → confirm, then end and show summary
+  if(confirm("Exit করলে গেম বন্ধ হবে এবং রেজাল্ট দেখানো হবে। চালিয়ে যাবেন?")){
+    await endGame();
+  }
+});
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+startBtn.addEventListener("click", ()=>{ ensureAudio(); startGame(); });
+
+playBtn.addEventListener("click", ()=>{
+  ensureAudio();
+  summaryOverlay.classList.remove("show");
+  resetState();
+  readyOverlay.classList.remove("hidden");
+});
+
+introPlayBtn.addEventListener("click", ()=>{
+  ensureAudio();
+  introOverlay.classList.add("hidden");
+});
+
+soundToggle.addEventListener("click", ()=>{
+  soundOn = !soundOn;
+  soundToggle.classList.toggle("muted", !soundOn);
+  soundToggle.setAttribute("aria-label", soundOn ? "Mute sound" : "Unmute sound");
+});
+
+window.addEventListener("pagehide", ()=>{
+  clearInterval(countdownTimer);
+  clearTimeout(spawnTimer);
+});
+</script>
+</body>
+</html>

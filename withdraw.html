@@ -1,0 +1,1828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#080b10">
+<title>Withdraw • EXBT77 Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    -webkit-tap-highlight-color:transparent;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+
+html{
+    background:#080b10;
+    scroll-behavior:smooth;
+}
+
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at 50% -10%,rgba(103,232,165,.10),transparent 35%),
+        #080b10;
+    color:#fff;
+    overscroll-behavior-y:none;
+    padding-bottom:100px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.app-header{
+    position:sticky;
+    top:0;
+    z-index:50;
+    height:68px;
+    padding:env(safe-area-inset-top) 16px 0;
+    display:flex;
+    align-items:center;
+    background:rgba(8,11,16,.88);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    border-bottom:1px solid rgba(255,255,255,.055);
+}
+
+.header-inner{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-button{
+    width:42px;
+    height:42px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:13px;
+    background:#11151d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition:transform .15s ease,background .15s ease;
+}
+
+.back-button:active{
+    transform:scale(.92);
+    background:#171c25;
+}
+
+.back-button svg{
+    width:19px;
+    height:19px;
+}
+
+.header-title{
+    flex:1;
+    font-size:18px;
+    font-weight:800;
+    letter-spacing:-.3px;
+}
+
+.header-icon{
+    width:42px;
+    height:42px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:13px;
+    background:#11151d;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+
+.header-icon svg{
+    width:18px;
+    height:18px;
+    stroke:#8892a0;
+    fill:none;
+}
+
+/* =========================
+   PAGE
+========================= */
+
+.page{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:18px 16px calc(35px + env(safe-area-inset-bottom));
+}
+
+/* =========================
+   BALANCE CARD
+========================= */
+
+.balance-card{
+    position:relative;
+    overflow:hidden;
+    padding:22px;
+    border-radius:23px;
+    background:
+        linear-gradient(145deg,rgba(20,43,34,.98),rgba(12,20,22,.98));
+    border:1px solid rgba(103,232,165,.15);
+    box-shadow:0 18px 45px rgba(0,0,0,.22);
+}
+
+.balance-card::before{
+    content:"";
+    position:absolute;
+    width:150px;
+    height:150px;
+    right:-65px;
+    top:-65px;
+    border-radius:50%;
+    background:rgba(103,232,165,.08);
+}
+
+.balance-top{
+    position:relative;
+    z-index:1;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.balance-label{
+    color:#87948e;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.2px;
+}
+
+.wallet-icon{
+    width:34px;
+    height:34px;
+    border-radius:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(103,232,165,.09);
+    color:#67e8a5;
+}
+
+.wallet-icon svg{
+    width:17px;
+    height:17px;
+    fill:none;
+    stroke:currentColor;
+}
+
+.balance{
+    position:relative;
+    z-index:1;
+    margin-top:8px;
+    font-size:32px;
+    line-height:1;
+    font-weight:850;
+    letter-spacing:-1px;
+}
+
+.balance span{
+    margin-right:3px;
+    color:#67e8a5;
+    font-size:19px;
+    font-weight:750;
+}
+
+.balance-skeleton{
+    width:150px;
+    height:32px;
+    margin-top:8px;
+    border-radius:8px;
+    background:linear-gradient(90deg,#1a2b23 20%,#243d32 40%,#1a2b23 60%);
+    background-size:300% 100%;
+    animation:shimmer 1.4s infinite;
+    position:relative;
+    z-index:1;
+}
+
+@keyframes shimmer{
+    0%{background-position:100% 0;}
+    100%{background-position:-100% 0;}
+}
+
+.balance-update-time{
+    position:relative;
+    z-index:1;
+    margin-top:10px;
+    color:#5a6b64;
+    font-size:10px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+
+.balance-update-time svg{
+    width:11px;
+    height:11px;
+    stroke:currentColor;
+    fill:none;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section{
+    margin-top:24px;
+}
+
+.section-title{
+    margin-bottom:10px;
+    color:#aeb6c2;
+    font-size:12px;
+    font-weight:750;
+    display:flex;
+    align-items:center;
+    gap:7px;
+}
+
+.section-title svg{
+    width:13px;
+    height:13px;
+    stroke:#67e8a5;
+    fill:none;
+}
+
+.section-hint{
+    margin-left:auto;
+    color:#5a6272;
+    font-size:10px;
+    font-weight:500;
+}
+
+.card{
+    padding:17px;
+    border-radius:18px;
+    background:#10141b;
+    border:1px solid rgba(255,255,255,.055);
+}
+
+/* =========================
+   AMOUNT
+========================= */
+
+.amount-wrapper{
+    position:relative;
+}
+
+.currency{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#67e8a5;
+    font-size:17px;
+    font-weight:800;
+    pointer-events:none;
+    transition:color .18s;
+}
+
+.amount-wrapper.error .currency{
+    color:#ff7b7b;
+}
+
+.amount-input{
+    width:100%;
+    height:56px;
+    padding:0 15px 0 37px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;
+    outline:none;
+    background:#0b0f15;
+    color:#fff;
+    font-size:17px;
+    font-weight:700;
+    transition:border-color .18s ease,box-shadow .18s ease;
+}
+
+.amount-input::placeholder{
+    color:#4e5662;
+    font-weight:500;
+}
+
+.amount-input:focus{
+    border-color:rgba(103,232,165,.55);
+    box-shadow:0 0 0 3px rgba(103,232,165,.06);
+}
+
+.amount-wrapper.error .amount-input{
+    border-color:rgba(255,92,92,.55);
+    box-shadow:0 0 0 3px rgba(255,92,92,.06);
+}
+
+.amount-error{
+    margin-top:8px;
+    color:#ff9b9b;
+    font-size:11px;
+    font-weight:600;
+    display:none;
+    align-items:center;
+    gap:6px;
+}
+
+.amount-error.show{
+    display:flex;
+}
+
+.amount-error svg{
+    width:12px;
+    height:12px;
+    stroke:currentColor;
+    fill:none;
+    flex-shrink:0;
+}
+
+.quick-actions{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:7px;
+    margin-top:9px;
+}
+
+.quick-button{
+    height:36px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.055);
+    background:#11161e;
+    color:#818a98;
+    font-size:10px;
+    font-weight:700;
+    cursor:pointer;
+    transition:transform .12s ease,background .12s ease,color .12s ease;
+}
+
+.quick-button:active{
+    transform:scale(.95);
+    background:#18221e;
+    color:#67e8a5;
+}
+
+/* =========================
+   METHOD
+========================= */
+
+.methods{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
+}
+
+.method{
+    position:relative;
+    height:57px;
+    border-radius:14px;
+    border:1px solid rgba(255,255,255,.07);
+    background:#0b0f15;
+    color:#7f8896;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    transition:transform .14s ease,border-color .14s ease,background .14s ease;
+}
+
+.method:active{
+    transform:scale(.97);
+}
+
+.method.active{
+    background:#10231b;
+    color:#67e8a5;
+    border-color:rgba(103,232,165,.45);
+    box-shadow:inset 0 0 0 1px rgba(103,232,165,.05);
+}
+
+.method-check{
+    width:17px;
+    height:17px;
+    border-radius:50%;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:#67e8a5;
+    color:#07120d;
+}
+
+.method.active .method-check{
+    display:flex;
+}
+
+.method-check svg{
+    width:10px;
+    height:10px;
+    stroke:currentColor;
+    fill:none;
+}
+
+/* =========================
+   ACCOUNT INPUT
+========================= */
+
+.account-wrapper{
+    position:relative;
+}
+
+.account-icon{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#596372;
+    pointer-events:none;
+}
+
+.account-icon svg{
+    width:17px;
+    height:17px;
+    stroke:currentColor;
+    fill:none;
+}
+
+.account-input{
+    width:100%;
+    height:54px;
+    padding:0 15px 0 43px;
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:14px;
+    outline:none;
+    background:#0b0f15;
+    color:#fff;
+    font-size:14px;
+    letter-spacing:.3px;
+    transition:border-color .18s ease,box-shadow .18s ease;
+}
+
+.account-input::placeholder{
+    color:#4e5662;
+}
+
+.account-input:focus{
+    border-color:rgba(103,232,165,.55);
+    box-shadow:0 0 0 3px rgba(103,232,165,.06);
+}
+
+/* =========================
+   ESTIMATED TIME
+========================= */
+
+.estimate-box{
+    margin-top:12px;
+    padding:11px 13px;
+    border-radius:12px;
+    background:rgba(139,92,246,.06);
+    border:1px solid rgba(139,92,246,.14);
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.estimate-icon{
+    width:30px;
+    height:30px;
+    border-radius:10px;
+    background:rgba(139,92,246,.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.estimate-icon svg{
+    width:15px;
+    height:15px;
+    stroke:#a78bfa;
+    fill:none;
+}
+
+.estimate-text{
+    flex:1;
+    min-width:0;
+}
+
+.estimate-title{
+    color:#a78bfa;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:2px;
+}
+
+.estimate-sub{
+    color:#8892a0;
+    font-size:10px;
+    font-weight:500;
+}
+
+/* =========================
+   SUBMIT
+========================= */
+
+.submit-button{
+    position:relative;
+    width:100%;
+    height:56px;
+    margin-top:20px;
+    border:0;
+    border-radius:15px;
+    background:#67e8a5;
+    color:#07120d;
+    font-size:14px;
+    font-weight:850;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform .14s ease,opacity .15s ease,box-shadow .15s ease;
+}
+
+.submit-button:active:not(:disabled){
+    transform:scale(.985);
+}
+
+.submit-button:disabled{
+    opacity:.48;
+    cursor:not-allowed;
+}
+
+.submit-button:not(:disabled):hover{
+    box-shadow:0 8px 24px rgba(103,232,165,.25);
+}
+
+.submit-content{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.submit-arrow{
+    width:17px;
+    height:17px;
+    fill:none;
+    stroke:currentColor;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+.loader{
+    width:17px;
+    height:17px;
+    border:2px solid rgba(7,18,13,.25);
+    border-top-color:#07120d;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg);}
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message{
+    display:none;
+    margin-top:12px;
+    padding:13px 14px;
+    border-radius:13px;
+    font-size:11.5px;
+    line-height:1.5;
+    font-weight:600;
+    align-items:flex-start;
+    gap:9px;
+    animation:messageIn .25s ease;
+}
+
+.message svg{
+    width:15px;
+    height:15px;
+    flex-shrink:0;
+    margin-top:1px;
+}
+
+.message.success{
+    display:flex;
+    color:#72e5a7;
+    background:#102019;
+    border:1px solid rgba(103,232,165,.14);
+}
+
+.message.success svg{
+    stroke:#72e5a7;
+    fill:none;
+}
+
+.message.error{
+    display:flex;
+    color:#ff929f;
+    background:#241418;
+    border:1px solid rgba(255,100,120,.14);
+}
+
+.message.error svg{
+    stroke:#ff929f;
+    fill:none;
+}
+
+@keyframes messageIn{
+    from{
+        opacity:0;
+        transform:translateY(-4px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* =========================
+   RECENT WITHDRAWALS
+========================= */
+
+.recent-list{
+    display:flex;
+    flex-direction:column;
+    gap:9px;
+}
+
+.recent-item{
+    padding:13px 15px;
+    border-radius:14px;
+    background:#0e1218;
+    border:1px solid rgba(255,255,255,.05);
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.recent-icon{
+    width:38px;
+    height:38px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+}
+
+.recent-icon.pending{
+    background:rgba(232,184,77,.10);
+}
+
+.recent-icon.pending svg{
+    stroke:#e8b84d;
+}
+
+.recent-icon.approved{
+    background:rgba(66,211,141,.10);
+}
+
+.recent-icon.approved svg{
+    stroke:#42d38d;
+}
+
+.recent-icon.rejected{
+    background:rgba(255,92,92,.10);
+}
+
+.recent-icon.rejected svg{
+    stroke:#ff5c5c;
+}
+
+.recent-icon svg{
+    width:17px;
+    height:17px;
+    fill:none;
+    stroke-width:2;
+}
+
+.recent-info{
+    flex:1;
+    min-width:0;
+}
+
+.recent-title{
+    font-size:12.5px;
+    font-weight:700;
+    margin-bottom:3px;
+}
+
+.recent-sub{
+    color:#5a6272;
+    font-size:10px;
+    font-weight:500;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.recent-sub .status-dot{
+    width:5px;
+    height:5px;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.recent-sub .status-dot.pending{background:#e8b84d;}
+.recent-sub .status-dot.approved{background:#42d38d;}
+.recent-sub .status-dot.rejected{background:#ff5c5c;}
+
+.recent-amount{
+    font-size:13.5px;
+    font-weight:800;
+    color:#b28aff;
+    white-space:nowrap;
+    letter-spacing:-.3px;
+}
+
+.recent-empty{
+    text-align:center;
+    padding:28px 20px;
+    color:#5a6272;
+    font-size:11.5px;
+    font-weight:500;
+}
+
+/* =========================
+   INFO CARD
+========================= */
+
+.info-card{
+    margin-top:22px;
+    padding:17px;
+    border-radius:18px;
+    background:#10141b;
+    border:1px solid rgba(255,255,255,.055);
+}
+
+.info-head{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    color:#c1c8d2;
+    font-size:12px;
+    font-weight:800;
+}
+
+.info-icon{
+    width:27px;
+    height:27px;
+    border-radius:9px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#181d25;
+    color:#8e98a7;
+}
+
+.info-icon svg{
+    width:14px;
+    height:14px;
+    stroke:currentColor;
+    fill:none;
+}
+
+.info-text{
+    margin-top:11px;
+    color:#737d8b;
+    font-size:10.5px;
+    line-height:1.7;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:40;
+    height:calc(74px + env(safe-area-inset-bottom));
+    padding-bottom:env(safe-area-inset-bottom);
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    background:rgba(9,10,14,.94);
+    border-top:1px solid rgba(255,255,255,.07);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+}
+
+.nav-item{
+    position:relative;
+    width:20%;
+    height:60px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+    color:#696d79;
+    font-size:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.18s ease;
+}
+
+.nav-item svg{
+    width:21px;
+    height:21px;
+    stroke:currentColor;
+    fill:none;
+    transition:.18s ease;
+}
+
+.nav-item.active{
+    color:#a477ff;
+}
+
+.nav-item.active::before{
+    content:"";
+    position:absolute;
+    top:1px;
+    width:24px;
+    height:3px;
+    border-radius:999px;
+    background:#9b6cff;
+    box-shadow:0 0 14px rgba(155,108,255,.65);
+}
+
+.nav-item:active{
+    transform:scale(.92);
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast{
+    position:fixed;
+    left:50%;
+    bottom:100px;
+    transform:translateX(-50%) translateY(20px);
+    background:#191b24;
+    border:1px solid #2a2d39;
+    color:#fff;
+    padding:12px 18px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:600;
+    opacity:0;
+    pointer-events:none;
+    transition:.25s;
+    z-index:400;
+    max-width:85%;
+    text-align:center;
+    box-shadow:0 12px 35px rgba(0,0,0,.4);
+}
+
+.toast.show{
+    opacity:1;
+    transform:translateX(-50%) translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:360px){
+    .page{
+        padding-left:13px;
+        padding-right:13px;
+    }
+    .balance{
+        font-size:29px;
+    }
+    .balance-card{
+        padding:19px;
+    }
+    .quick-actions{
+        gap:5px;
+    }
+    .quick-button{
+        font-size:9px;
+    }
+}
+
+@media(prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+        animation-duration:.01ms !important;
+        transition-duration:.01ms !important;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="app-header">
+    <div class="header-inner">
+
+        <button class="back-button" type="button" onclick="history.back()" aria-label="Go back">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 18l-6-6 6-6"/>
+            </svg>
+        </button>
+
+        <div class="header-title">Withdraw Money</div>
+
+        <button class="header-icon" onclick="location.href='notifications.html'" aria-label="Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"/>
+                <path d="M10 21h4"/>
+            </svg>
+        </button>
+
+    </div>
+</header>
+
+
+<main class="page">
+
+    <!-- =========================
+         BALANCE CARD
+    ========================== -->
+
+    <section class="balance-card">
+
+        <div class="balance-top">
+
+            <div class="balance-label">AVAILABLE BALANCE</div>
+
+            <div class="wallet-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 7V6a2 2 0 0 0-2-2H5a3 3 0 0 0 0 6h14a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a3 3 0 0 1-3-3V7"/>
+                    <path d="M16 14h.01"/>
+                </svg>
+            </div>
+
+        </div>
+
+        <div class="balance-skeleton" id="balanceSkeleton"></div>
+
+        <div class="balance" id="balance" style="display:none;">
+            <span>৳</span><span id="balanceValue">0.00</span>
+        </div>
+
+        <div class="balance-update-time" id="updateTime" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+            </svg>
+            <span id="updateTimeText">Just now</span>
+        </div>
+
+    </section>
+
+
+    <form class="withdraw-form" id="withdrawForm">
+
+
+        <!-- =========================
+             AMOUNT
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                </svg>
+                Withdrawal Amount
+                <span class="section-hint">Min ৳100</span>
+            </div>
+
+            <div class="card">
+
+                <div class="amount-wrapper" id="amountWrapper">
+
+                    <div class="currency">৳</div>
+
+                    <input
+                        class="amount-input"
+                        id="amount"
+                        type="number"
+                        min="1"
+                        step="1"
+                        inputmode="numeric"
+                        placeholder="Enter amount"
+                        autocomplete="off"
+                        required>
+
+                </div>
+
+                <div class="amount-error" id="amountError">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 8v4M12 16h.01"/>
+                    </svg>
+                    <span id="amountErrorText"></span>
+                </div>
+
+                <div class="quick-actions">
+                    <button type="button" class="quick-button" onclick="setAmount(100)">৳100</button>
+                    <button type="button" class="quick-button" onclick="setAmount(500)">৳500</button>
+                    <button type="button" class="quick-button" onclick="setAmount(1000)">৳1000</button>
+                    <button type="button" class="quick-button" onclick="useAll()">All</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             METHOD
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="7" width="18" height="13" rx="2"/>
+                    <path d="M3 10h18"/>
+                </svg>
+                Payment Method
+            </div>
+
+            <div class="card">
+
+                <div class="methods">
+
+                    <button type="button" class="method active" id="bkashBtn" onclick="selectMethod('bKash')">
+                        bKash
+                        <span class="method-check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 12 4 4L19 6"/>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <button type="button" class="method" id="nagadBtn" onclick="selectMethod('Nagad')">
+                        Nagad
+                        <span class="method-check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m5 12 4 4L19 6"/>
+                            </svg>
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ACCOUNT
+        ========================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="14" rx="2"/>
+                    <path d="M7 9h.01M11 9h6M7 13h10M7 17h5"/>
+                </svg>
+                Account Number
+            </div>
+
+            <div class="card">
+
+                <div class="account-wrapper">
+
+                    <div class="account-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="5" y="2" width="14" height="20" rx="2"/>
+                            <path d="M12 18h.01"/>
+                        </svg>
+                    </div>
+
+                    <input
+                        class="account-input"
+                        id="accountNumber"
+                        type="tel"
+                        inputmode="numeric"
+                        maxlength="11"
+                        placeholder="01XXXXXXXXX"
+                        autocomplete="tel"
+                        required>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ESTIMATED TIME
+        ========================== -->
+
+        <div class="estimate-box">
+
+            <div class="estimate-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 7v5l3 2"/>
+                </svg>
+            </div>
+
+            <div class="estimate-text">
+                <div class="estimate-title">Processing Time</div>
+                <div class="estimate-sub">Usually within 24 hours after admin approval</div>
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             SUBMIT
+        ========================== -->
+
+        <button class="submit-button" id="submitBtn" type="submit">
+            <span class="submit-content" id="submitContent">
+                Request Withdrawal
+                <svg class="submit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14"/>
+                    <path d="m13 6 6 6-6 6"/>
+                </svg>
+            </span>
+        </button>
+
+        <div id="message" class="message"></div>
+
+    </form>
+
+
+    <!-- =========================
+         RECENT WITHDRAWALS
+    ========================== -->
+
+    <section class="section">
+
+        <div class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 7v5l3 2"/>
+            </svg>
+            Recent Withdrawals
+        </div>
+
+        <div class="recent-list" id="recentList">
+            <div class="recent-empty">Loading...</div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INFORMATION
+    ========================== -->
+
+    <section class="info-card">
+
+        <div class="info-head">
+            <div class="info-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <path d="M12 11v5"/>
+                    <path d="M12 8h.01"/>
+                </svg>
+            </div>
+            Withdrawal Information
+        </div>
+
+        <div class="info-text">
+            Your withdrawal request will first be reviewed by the administrator.
+            The amount will not be deducted from your wallet by this page.
+            <br><br>
+            After approval, the administrator can process the payment manually
+            to your selected bKash or Nagad account.
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================
+     BOTTOM NAV
+========================= -->
+
+<nav class="bottom-nav">
+
+    <div class="nav-item" onclick="location.href='home.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 10.5L12 3l9 7.5v9a1.5 1.5 0 01-1.5 1.5h-15A1.5 1.5 0 013 19.5v-9z"/>
+            <path d="M9 21v-6h6v6"/>
+        </svg>
+        Home
+    </div>
+
+    <div class="nav-item" onclick="location.href='games.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="6" width="18" height="12" rx="5"/>
+            <path d="M8 12h4M10 10v4M16 10h.01M18 13h.01"/>
+        </svg>
+        Games
+    </div>
+
+    <div class="nav-item" onclick="location.href='tasks.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 3h12v18H6z"/>
+            <path d="M9 7h6M9 11h6M9 15h4"/>
+        </svg>
+        Tasks
+    </div>
+
+    <div class="nav-item active" onclick="location.href='wallet.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 7.5A2.5 2.5 0 015.5 5h13A2.5 2.5 0 0121 7.5v11A2.5 2.5 0 0118.5 21h-13A2.5 2.5 0 013 18.5v-11z"/>
+            <path d="M16 13h5M16.5 13a1 1 0 100 2 1 1 0 000-2z"/>
+        </svg>
+        Wallet
+    </div>
+
+    <div class="nav-item" onclick="location.href='profile.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6"/>
+        </svg>
+        Profile
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div class="toast" id="toast">Notification</div>
+
+
+<script type="module">
+
+/* =====================================================
+   FIREBASE IMPORTS
+===================================================== */
+
+import {
+    initializeApp,
+    getApps,
+    getApp
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+
+import {
+    getAuth,
+    onAuthStateChanged,
+    setPersistence,
+    browserLocalPersistence
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+
+import {
+    getDatabase,
+    ref,
+    get,
+    push,
+    set,
+    query,
+    orderByChild,
+    limitToLast
+}
+from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+
+/* =====================================================
+   FIREBASE CONFIG
+   (সঠিক API Key)
+===================================================== */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyCVuTqUM2jaawhWRzxWiK9cwUUxlH_LyB8",
+    authDomain: "exbt77-play.firebaseapp.com",
+    databaseURL: "https://exbt77-play-default-rtdb.firebaseio.com",
+    projectId: "exbt77-play",
+    storageBucket: "exbt77-play.firebasestorage.app",
+    messagingSenderId: "150332377686",
+    appId: "1:150332377686:web:9dbd97caecb7484a8089f7",
+    measurementId: "G-SR45LCFH98"
+};
+
+
+/* =====================================================
+   FIREBASE INIT
+===================================================== */
+
+const app = getApps().length === 0
+    ? initializeApp(firebaseConfig)
+    : getApp();
+
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+setPersistence(auth, browserLocalPersistence)
+    .catch(err => console.error("Persistence error:", err));
+
+
+/* =====================================================
+   STATE
+===================================================== */
+
+const MIN_WITHDRAWAL = 100;
+const MAX_WITHDRAWAL = 50000;
+
+let currentUser = null;
+let availableBalance = 0;
+let selectedMethod = "bKash";
+let hasPendingWithdrawal = false;
+let busyAction = false;
+
+
+/* =====================================================
+   DOM
+===================================================== */
+
+const balanceEl = document.getElementById("balance");
+const balanceValueEl = document.getElementById("balanceValue");
+const balanceSkeleton = document.getElementById("balanceSkeleton");
+const updateTimeEl = document.getElementById("updateTime");
+const updateTimeText = document.getElementById("updateTimeText");
+
+const form = document.getElementById("withdrawForm");
+const amountInput = document.getElementById("amount");
+const amountWrapper = document.getElementById("amountWrapper");
+const amountError = document.getElementById("amountError");
+const amountErrorText = document.getElementById("amountErrorText");
+
+const accountInput = document.getElementById("accountNumber");
+const submitBtn = document.getElementById("submitBtn");
+const submitContent = document.getElementById("submitContent");
+const message = document.getElementById("message");
+const recentList = document.getElementById("recentList");
+const toast = document.getElementById("toast");
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function money(v){
+    return Number(v || 0).toLocaleString("en-US",{
+        minimumFractionDigits:2,
+        maximumFractionDigits:2
+    });
+}
+
+function formatDate(ts){
+    if(!ts) return "N/A";
+    const d = new Date(Number(ts));
+    if(isNaN(d.getTime())) return "N/A";
+    return d.toLocaleString("en-US",{
+        day:"2-digit", month:"short", year:"numeric",
+        hour:"2-digit", minute:"2-digit"
+    });
+}
+
+function escapeHTML(v){
+    if(v === undefined || v === null) return "";
+    return String(v)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
+function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(() => {
+        toast.classList.remove("show");
+    }, 2400);
+}
+
+function showMessage(text, type){
+    const icon = type === "success"
+        ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="12" cy="12" r="10"/>
+             <path d="M8 12l3 3 5-5"/>
+           </svg>`
+        : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             <circle cx="12" cy="12" r="10"/>
+             <path d="M12 8v4M12 16h.01"/>
+           </svg>`;
+
+    message.className = "message " + type;
+    message.innerHTML = icon + "<span>" + escapeHTML(text) + "</span>";
+}
+
+function hideMessage(){
+    message.className = "message";
+    message.innerHTML = "";
+}
+
+function showAmountError(text){
+    amountWrapper.classList.add("error");
+    amountErrorText.textContent = text;
+    amountError.classList.add("show");
+}
+
+function hideAmountError(){
+    amountWrapper.classList.remove("error");
+    amountError.classList.remove("show");
+}
+
+
+/* =====================================================
+   AUTH GUARD
+===================================================== */
+
+onAuthStateChanged(auth, async (user) => {
+
+    if(!user){
+        location.replace("login.html");
+        return;
+    }
+
+    currentUser = user;
+
+    await loadBalance();
+    await checkPendingWithdrawal();
+    await loadRecentWithdrawals();
+
+});
+
+
+/* =====================================================
+   LOAD BALANCE
+===================================================== */
+
+async function loadBalance(){
+
+    try{
+
+        const snap = await get(ref(db, "users/" + currentUser.uid));
+        const data = snap.val() || {};
+
+        availableBalance = Number(data.balance || 0);
+
+        /* Update UI */
+        balanceSkeleton.style.display = "none";
+        balanceEl.style.display = "block";
+        updateTimeEl.style.display = "flex";
+
+        balanceValueEl.textContent = money(availableBalance);
+
+        updateTimeText.textContent = "Just now";
+
+    }catch(err){
+
+        console.error("Balance load error:", err);
+
+        balanceSkeleton.style.display = "none";
+        balanceEl.style.display = "block";
+
+        balanceValueEl.textContent = "0.00";
+        showToast("Failed to load balance");
+
+    }
+
+}
+
+
+/* =====================================================
+   CHECK PENDING WITHDRAWAL
+===================================================== */
+
+async function checkPendingWithdrawal(){
+
+    try{
+
+        const snap = await get(ref(db, "withdrawals"));
+
+        if(!snap.exists()) return;
+
+        let pending = false;
+
+        snap.forEach(child => {
+            const data = child.val() || {};
+            if(data.uid === currentUser.uid && data.status === "pending"){
+                pending = true;
+            }
+        });
+
+        hasPendingWithdrawal = pending;
+
+        if(pending){
+            showMessage(
+                "You already have a pending withdrawal request. Please wait for admin approval.",
+                "error"
+            );
+            submitBtn.disabled = true;
+        }
+
+    }catch(err){
+        console.error("Pending check error:", err);
+    }
+
+}
+
+
+/* =====================================================
+   LOAD RECENT WITHDRAWALS
+===================================================== */
+
+async function loadRecentWithdrawals(){
+
+    try{
+
+        const snap = await get(ref(db, "withdrawals"));
+
+        if(!snap.exists()){
+            recentList.innerHTML = `<div class="recent-empty">No recent withdrawals yet</div>`;
+            return;
+        }
+
+        const items = [];
+
+        snap.forEach(child => {
+            const data = child.val() || {};
+            if(data.uid === currentUser.uid){
+                items.push(data);
+            }
+        });
+
+        if(items.length === 0){
+            recentList.innerHTML = `<div class="recent-empty">No recent withdrawals yet</div>`;
+            return;
+        }
+
+        items.sort((a,b) => Number(b.createdAt || 0) - Number(a.createdAt || 0));
+
+        recentList.innerHTML = "";
+
+        items.slice(0, 3).forEach(item => {
+
+            const status = item.status || "pending";
+            const icon = status === "approved"
+                ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <circle cx="12" cy="12" r="10"/>
+                     <path d="M8 12l3 3 5-5"/>
+                   </svg>`
+                : status === "rejected"
+                ? `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <circle cx="12" cy="12" r="10"/>
+                     <path d="M15 9l-6 6M9 9l6 6"/>
+                   </svg>`
+                : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                     <circle cx="12" cy="12" r="10"/>
+                     <path d="M12 7v5l3 2"/>
+                   </svg>`;
+
+            const row = document.createElement("div");
+            row.className = "recent-item";
+
+            row.innerHTML = `
+                <div class="recent-icon ${escapeHTML(status)}">${icon}</div>
+                <div class="recent-info">
+                    <div class="recent-title">${escapeHTML(item.method || "Withdrawal")}</div>
+                    <div class="recent-sub">
+                        ${formatDate(item.createdAt)}
+                        <span class="status-dot ${escapeHTML(status)}"></span>
+                        <span style="text-transform:capitalize;">${escapeHTML(status)}</span>
+                    </div>
+                </div>
+                <div class="recent-amount">৳${money(item.amount)}</div>
+            `;
+
+            recentList.appendChild(row);
+
+        });
+
+    }catch(err){
+        console.error("Recent load error:", err);
+        recentList.innerHTML = `<div class="recent-empty">Failed to load history</div>`;
+    }
+
+}
+
+
+/* =====================================================
+   AMOUNT VALIDATION (real-time)
+===================================================== */
+
+amountInput.addEventListener("input", () => {
+
+    hideAmountError();
+
+    const value = Number(amountInput.value);
+
+    if(!value || value <= 0){
+        return;
+    }
+
+    if(value > availableBalance){
+        showAmountError("Amount exceeds your available balance");
+    }else if(value < MIN_WITHDRAWAL){
+        showAmountError("Minimum withdrawal is ৳" + MIN_WITHDRAWAL);
+    }
+
+});
+
+
+/* =====================================================
+   QUICK AMOUNT
+===================================================== */
+
+window.setAmount = function(amount){
+    amountInput.value = amount;
+    amountInput.dispatchEvent(new Event("input"));
+};
+
+
+window.useAll = function(){
+
+    if(availableBalance >= MIN_WITHDRAWAL){
+        amountInput.value = Math.floor(availableBalance);
+        amountInput.dispatchEvent(new Event("input"));
+    }else{
+        showToast("Balance too low for withdrawal");
+    }
+
+};
+
+
+/* =====================================================
+   SELECT METHOD
+===================================================== */
+
+window.selectMethod = function(method){
+
+    selectedMethod = method;
+
+    document.getElementById("bkashBtn")
+        .classList.toggle("active", method === "bKash");
+
+    document.getElementById("nagadBtn")
+        .classList.toggle("active", method === "Nagad");
+
+};
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+form.addEventListener("submit", async (e) => {
+
+    e.preventDefault();
+
+    if(busyAction) return;
+
+    if(!currentUser){
+        showMessage("Please login again.", "error");
+        return;
+    }
+
+    if(hasPendingWithdrawal){
+        showMessage("You already have a pending withdrawal request.", "error");
+        return;
+    }
+
+    const amount = Number(amountInput.value);
+    const accountNumber = accountInput.value.trim();
+
+    /* VALIDATION */
+
+    if(!amount || amount <= 0){
+        showAmountError("Please enter a valid amount");
+        showMessage("Please enter a valid withdrawal amount.", "error");
+        return;
+    }
+
+    if(amount < MIN_WITHDRAWAL){
+        showAmountError("Minimum withdrawal is ৳" + MIN_WITHDRAWAL);
+        showMessage("Minimum withdrawal amount is ৳" + MIN_WITHDRAWAL + ".", "error");
+        return;
+    }
+
+    if(amount > MAX_WITHDRAWAL){
+        showAmountError("Maximum withdrawal is ৳" + MAX_WITHDRAWAL);
+        return;
+    }
+
+    if(amount > availableBalance){
+        showAmountError("Amount exceeds available balance");
+        showMessage("Insufficient balance for this withdrawal.", "error");
+        return;
+    }
+
+    if(!/^01[3-9][0-9]{8}$/.test(accountNumber)){
+        showMessage("Please enter a valid Bangladesh mobile number.", "error");
+        return;
+    }
+
+    busyAction = true;
+    submitBtn.disabled = true;
+    submitContent.innerHTML = `<span class="loader"></span> Submitting...`;
+
+    try{
+
+        const wdRef = push(ref(db, "withdrawals"));
+        const wdId = wdRef.key;
+
+        await set(wdRef, {
+            withdrawalId: wdId,
+            uid: currentUser.uid,
+            email: currentUser.email || "",
+            amount: amount,
+            method: selectedMethod,
+            accountNumber: accountNumber,
+            status: "pending",
+            createdAt: Date.now()
+        });
+
+        hasPendingWithdrawal = true;
+
+        showMessage(
+            "Withdrawal request submitted. Please wait for admin approval.",
+            "success"
+        );
+
+        showToast("Withdrawal request sent");
+
+        /* Reset form */
+        amountInput.value = "";
+        accountInput.value = "";
+        selectedMethod = "bKash";
+        selectMethod("bKash");
+        hideAmountError();
+
+        submitBtn.disabled = true;
+        submitContent.innerHTML = `Request Withdrawal`;
+
+        /* Reload recent */
+        loadRecentWithdrawals();
+
+    }catch(err){
+
+        console.error("Submit error:", err);
+
+        showMessage(
+            "Unable to submit request. Please try again.",
+            "error"
+        );
+
+        submitBtn.disabled = false;
+        submitContent.innerHTML = `
+            Request Withdrawal
+            <svg class="submit-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14"/>
+                <path d="m13 6 6 6-6 6"/>
+            </svg>
+        `;
+
+    }finally{
+        busyAction = false;
+    }
+
+});
+
+</script>
+
+</body>
+</html>

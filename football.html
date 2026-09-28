@@ -1,0 +1,2059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#0c0d13">
+<title>Football Clash • EXBT77 Play</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+  color-scheme:dark;
+  --bg:#090a0f;
+  --line:rgba(255,255,255,.075);
+  --text:#f7f6fb;
+  --muted:#9293a2;
+  --green:#5de2a2;
+  --red:#ff6262;
+  --gold:#ffb84d;
+  --purple-bright:#b69bff;
+  --safe-top:env(safe-area-inset-top, 0px);
+  --safe-bottom:env(safe-area-inset-bottom, 0px);
+}
+
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+html,body{
+  height:100%;width:100%;
+  margin:0;padding:0;
+  overflow:hidden;
+  background:#090a0f;
+  color:var(--text);
+  font-family:'DM Sans',Inter,Roboto,system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+  touch-action:none;
+  user-select:none;
+  -webkit-user-select:none;
+}
+button{border:0;background:none;color:inherit;cursor:pointer;font:inherit;}
+
+.app{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  padding-top:var(--safe-top);
+  padding-bottom:var(--safe-bottom);
+  background:radial-gradient(ellipse at 50% 0%, #1a1330 0%, #090a0f 60%);
+}
+
+.topbar{
+  flex-shrink:0;height:52px;padding:0 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:rgba(10,11,16,.94);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  z-index:20;
+}
+.brand{display:flex;align-items:center;gap:8px;}
+.brand-logo{
+  display:grid;place-items:center;
+  width:30px;height:30px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.2);
+  background:linear-gradient(145deg,#a17aff 0%,#7042e6 80%);
+  box-shadow:0 5px 14px rgba(119,78,239,.3);
+  flex-shrink:0;
+}
+.brand-logo svg{width:16px;height:16px;stroke:#fff;}
+.brand-name{font-size:12.5px;font-weight:800;}
+.topbar-right{display:flex;align-items:center;gap:6px;}
+.sound-toggle{
+  width:32px;height:32px;border-radius:9px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.05);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.sound-toggle svg{width:15px;height:15px;stroke:#e0deea;fill:none;stroke-width:2;}
+.sound-toggle.muted svg{stroke:#5a6272;}
+.header-balance{
+  padding:5px 10px;border-radius:9px;
+  background:rgba(20,43,34,.9);
+  border:1px solid rgba(93,226,162,.25);
+  display:flex;align-items:center;gap:4px;
+}
+.header-balance svg{width:10px;height:10px;stroke:var(--green);fill:none;stroke-width:2.4;}
+.header-balance-text{
+  font-size:11.5px;font-weight:850;color:var(--green);
+  font-variant-numeric:tabular-nums;
+}
+.exit-btn{
+  padding:6px 11px;border-radius:9px;
+  border:1px solid rgba(255,98,98,.35);
+  background:rgba(255,98,98,.14);color:var(--red);
+  font-size:11px;font-weight:800;
+  display:flex;align-items:center;gap:4px;
+}
+.exit-btn svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.6;}
+
+.scoreboard{
+  flex-shrink:0;height:60px;padding:0 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:
+    radial-gradient(circle at 0% 50%, rgba(0,106,78,.28), transparent 55%),
+    radial-gradient(circle at 100% 50%, rgba(255,153,51,.22), transparent 55%),
+    linear-gradient(145deg, rgba(22,18,38,.98), rgba(12,14,20,.98));
+  border-bottom:1px solid rgba(255,255,255,.05);
+  z-index:19;
+}
+.team-info{display:flex;align-items:center;gap:6px;flex:1;min-width:0;}
+.team-info.right{flex-direction:row-reverse;}
+.team-flag{
+  width:32px;height:24px;border-radius:4px;
+  overflow:hidden;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.35);
+  box-shadow:0 2px 6px rgba(0,0,0,.5);
+  position:relative;
+}
+.flag-bd{background:#006a4e;display:grid;place-items:center;}
+.flag-bd::before{
+  content:"";width:12px;height:12px;border-radius:50%;
+  background:#f42a41;
+  box-shadow:0 0 8px rgba(244,42,65,.8);
+}
+.flag-in{
+  background:linear-gradient(180deg,
+    #ff9933 0%, #ff9933 33.33%,
+    #ffffff 33.33%, #ffffff 66.66%,
+    #138808 66.66%, #138808 100%);
+}
+.flag-in::before{
+  content:"";position:absolute;top:50%;left:50%;
+  width:6px;height:6px;border-radius:50%;
+  border:1.2px solid #000080;
+  transform:translate(-50%,-50%);
+}
+.team-name{display:flex;flex-direction:column;min-width:0;flex:1;}
+.team-info.right .team-name{align-items:flex-end;}
+.team-name-label{font-size:7.5px;font-weight:800;color:var(--muted);letter-spacing:.4px;text-transform:uppercase;}
+.team-name-value{font-size:12px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.team-name-value.bd{color:var(--green);}
+.team-name-value.in{color:var(--gold);}
+.score-box{
+  padding:5px 14px;border-radius:10px;
+  background:rgba(0,0,0,.6);
+  border:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;gap:6px;
+  font-size:22px;font-weight:900;
+  font-variant-numeric:tabular-nums;flex-shrink:0;
+}
+.score-bd{color:var(--green);text-shadow:0 0 10px rgba(93,226,162,.7);}
+.score-sep{color:var(--muted);font-size:14px;}
+.score-in{color:var(--red);text-shadow:0 0 10px rgba(255,98,98,.7);}
+
+.progress-bar{
+  flex-shrink:0;height:30px;padding:0 12px;
+  background:rgba(15,17,24,.95);
+  border-bottom:1px solid rgba(255,255,255,.04);
+  display:flex;align-items:center;justify-content:space-between;
+  gap:6px;z-index:18;
+}
+.progress-side{flex:1;display:flex;align-items:center;gap:4px;}
+.progress-side.right{flex-direction:row-reverse;}
+.goal-dot{
+  width:12px;height:12px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+  border:1.5px solid rgba(255,255,255,.15);
+  transition:all .3s ease;
+}
+.goal-dot.bd.filled{
+  background:linear-gradient(135deg,#5de2a2,#25a96c);
+  border-color:#fff;
+  box-shadow:0 0 10px rgba(93,226,162,.9);
+}
+.goal-dot.in.filled{
+  background:linear-gradient(135deg,#ff9933,#ff6262);
+  border-color:#fff;
+  box-shadow:0 0 10px rgba(255,153,51,.9);
+}
+.progress-vs{font-size:9px;font-weight:900;color:var(--muted);letter-spacing:.5px;}
+
+.stadium-wrap{
+  flex:1;min-height:0;position:relative;padding:6px;
+  display:flex;align-items:center;justify-content:center;
+  background:radial-gradient(ellipse at 50% 30%, #1e1a2e 0%, #0a0816 60%, #05040a 100%);
+}
+.stadium{
+  position:relative;width:100%;height:100%;
+  border-radius:14px;overflow:hidden;
+  box-shadow:0 25px 70px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.06), inset 0 0 100px rgba(0,0,0,.5);
+  background:#08100a;
+  touch-action:none;
+}
+.stands{position:absolute;inset:0;z-index:1;}
+.stand{position:absolute;box-shadow:inset 0 0 40px rgba(0,0,0,.85);}
+.stand::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 3px 3px, rgba(255,220,150,.6) .8px, transparent 1px),
+    radial-gradient(circle at 8px 5px, rgba(255,180,120,.4) .8px, transparent 1px),
+    radial-gradient(circle at 5px 8px, rgba(200,180,255,.4) .8px, transparent 1px);
+  background-size:20px 12px;
+}
+.stand.top{top:0;left:0;right:0;height:48px;background:linear-gradient(180deg, #1a1428 0%, #241c3a 100%);}
+.stand.bottom{bottom:0;left:0;right:0;height:48px;background:linear-gradient(0deg, #1a1428 0%, #241c3a 100%);}
+.stand.left{top:48px;bottom:48px;left:0;width:26px;background:linear-gradient(90deg, #1a1428 0%, #241c3a 100%);}
+.stand.right{top:48px;bottom:48px;right:0;width:26px;background:linear-gradient(-90deg, #1a1428 0%, #241c3a 100%);}
+.floodlight{
+  position:absolute;width:110px;height:60px;
+  background:radial-gradient(ellipse, rgba(255,255,220,.5), rgba(255,255,220,0) 70%);
+  z-index:5;pointer-events:none;filter:blur(12px);
+}
+.floodlight.tl{top:-10px;left:-10px;}
+.floodlight.tr{top:-10px;right:-10px;}
+.floodlight.bl{bottom:-10px;left:-10px;}
+.floodlight.br{bottom:-10px;right:-10px;}
+.barrier{
+  position:absolute;left:0;right:0;height:8px;
+  background:repeating-linear-gradient(90deg, #2a2a2a 0 3px, #1a1a1a 3px 6px);
+  z-index:3;pointer-events:none;box-shadow:0 2px 6px rgba(0,0,0,.6);
+}
+.barrier.top{top:48px;}
+.barrier.bottom{bottom:48px;}
+.barrier-left, .barrier-right{
+  position:absolute;top:48px;bottom:48px;width:8px;
+  background:repeating-linear-gradient(0deg, #2a2a2a 0 3px, #1a1a1a 3px 6px);
+  z-index:3;pointer-events:none;box-shadow:2px 0 6px rgba(0,0,0,.6);
+}
+.barrier-left{left:26px;}
+.barrier-right{right:26px;box-shadow:-2px 0 6px rgba(0,0,0,.6);}
+
+.pitch{
+  position:absolute;top:56px;bottom:56px;left:34px;right:34px;
+  z-index:2;overflow:hidden;
+  background:
+    radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%),
+    repeating-linear-gradient(0deg, #2c7a3f 0 42px, #236e35 42px 84px);
+  box-shadow:inset 0 0 60px rgba(0,0,0,.6), inset 0 0 0 2px rgba(255,255,255,.15);
+  border-radius:2px;
+}
+.pitch::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(255,255,255,.03) 1px, transparent 2px),
+    radial-gradient(circle at 45% 60%, rgba(255,255,255,.02) 1px, transparent 2px);
+  background-size:80px 80px;pointer-events:none;opacity:.6;
+}
+.pitch::after{
+  content:"";position:absolute;top:50%;left:0;right:0;height:2px;
+  background:rgba(255,255,255,.55);opacity:.9;
+  transform:translateY(-50%);pointer-events:none;
+  box-shadow:0 0 4px rgba(255,255,255,.4);
+}
+.field-border{
+  position:absolute;inset:10px;
+  border:2px solid rgba(255,255,255,.55);
+  border-radius:2px;pointer-events:none;
+}
+.center-circle{
+  position:absolute;top:50%;left:50%;
+  width:90px;height:90px;border:2px solid rgba(255,255,255,.55);
+  border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.center-dot{
+  position:absolute;top:50%;left:50%;
+  width:7px;height:7px;background:rgba(255,255,255,.7);
+  border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;
+}
+.penalty{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:200px;height:80px;
+  border:2px solid rgba(255,255,255,.55);pointer-events:none;
+}
+.penalty.top{top:10px;border-top:0;}
+.penalty.bottom{bottom:10px;border-bottom:0;}
+.goal-area{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:110px;height:32px;
+  border:2px solid rgba(255,255,255,.55);pointer-events:none;
+}
+.goal-area.top{top:10px;border-top:0;}
+.goal-area.bottom{bottom:10px;border-bottom:0;}
+
+.goal-net{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:110px;height:22px;z-index:4;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.4) 0 1.5px, transparent 1.5px 5px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.4) 0 1.5px, transparent 1.5px 5px),
+    rgba(0,0,0,.5);
+  border:2.5px solid #fff;pointer-events:none;
+}
+.goal-net.top{
+  top:-2px;border-top:0;border-radius:0 0 6px 6px;
+  box-shadow:0 4px 12px rgba(0,0,0,.6), inset 0 0 20px rgba(255,255,255,.3);
+}
+.goal-net.bottom{
+  bottom:-2px;border-bottom:0;border-radius:6px 6px 0 0;
+  box-shadow:0 -4px 12px rgba(0,0,0,.6), inset 0 0 20px rgba(255,255,255,.3);
+}
+.goal-hit{
+  position:absolute;left:50%;transform:translateX(-50%);
+  width:130px;height:60px;pointer-events:none;
+  border-radius:10px;opacity:0;z-index:5;
+}
+.goal-hit.top{top:0;background:radial-gradient(circle at 50% 0%, rgba(255,98,98,.85), transparent 70%);}
+.goal-hit.bottom{bottom:0;background:radial-gradient(circle at 50% 100%, rgba(93,226,162,.85), transparent 70%);}
+.goal-hit.flash{animation:goalHitFlash 1s ease-out;}
+@keyframes goalHitFlash{
+  0%{opacity:0;transform:translateX(-50%) scale(.5);}
+  30%{opacity:1;transform:translateX(-50%) scale(1);}
+  100%{opacity:0;transform:translateX(-50%) scale(1.3);}
+}
+
+.puppet{
+  position:absolute;width:44px;height:54px;
+  transform:translate(-50%,-50%);
+  z-index:10;pointer-events:none;will-change:left,top;
+}
+.puppet-shadow{
+  position:absolute;bottom:-4px;left:50%;transform:translateX(-50%);
+  width:34px;height:8px;
+  background:radial-gradient(ellipse, rgba(0,0,0,.7), transparent 70%);
+  filter:blur(3px);
+}
+.puppet .head{
+  position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:22px;height:22px;border-radius:50%;
+  border:2px solid #2a1f10;
+  background:radial-gradient(circle at 30% 30%, #f8d9b3, #b07848);
+  box-shadow:inset -3px -3px 6px rgba(0,0,0,.3), inset 3px 3px 6px rgba(255,255,255,.4);
+  z-index:3;
+}
+.puppet .body{
+  position:absolute;top:20px;left:50%;transform:translateX(-50%);
+  width:32px;height:26px;
+  border-radius:8px 8px 6px 6px;
+  border:2px solid rgba(0,0,0,.7);z-index:2;
+}
+.puppet .legs{
+  position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+  width:26px;height:10px;
+  background:linear-gradient(180deg, #2a2a2a, #1a1a1a);
+  border-radius:3px;z-index:1;
+}
+.puppet.bd .body{
+  background:linear-gradient(180deg, #34b878 0%, #006a4e 100%);
+  box-shadow:inset -4px -6px 10px rgba(0,0,0,.3), inset 4px 4px 8px rgba(255,255,255,.2);
+}
+.puppet.bd .body::before{
+  content:"";position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);
+  width:3px;background:#f42a41;opacity:.9;
+}
+.puppet.bd.has-ball .body{
+  box-shadow:inset -4px -6px 10px rgba(0,0,0,.3), inset 4px 4px 8px rgba(255,255,255,.2),
+    0 0 20px rgba(255,184,77,.9), 0 0 40px rgba(255,184,77,.5);
+}
+.puppet.in .body{
+  background:linear-gradient(180deg, #ffb366 0%, #c76a1e 100%);
+  box-shadow:inset -4px -6px 10px rgba(0,0,0,.3), inset 4px 4px 8px rgba(255,255,255,.2);
+}
+.puppet.in .body::before{
+  content:"";position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);
+  width:3px;background:#000080;opacity:.9;
+}
+.puppet.in.has-ball .body{
+  box-shadow:inset -4px -6px 10px rgba(0,0,0,.3), inset 4px 4px 8px rgba(255,255,255,.2),
+    0 0 20px rgba(255,98,98,.9), 0 0 40px rgba(255,98,98,.5);
+}
+@keyframes bodyBob{0%,100%{top:20px;}50%{top:18px;}}
+@keyframes headBob{0%,100%{top:0;}50%{top:-1.5px;}}
+@keyframes legStride1{0%,100%{transform:translateX(-50%) scaleX(1.15);}50%{transform:translateX(-50%) scaleX(0.7);}}
+@keyframes legStride2{0%,100%{transform:translateX(-50%) scaleX(0.7);}50%{transform:translateX(-50%) scaleX(1.15);}}
+.puppet .legs{animation: legStride1 .32s linear infinite alternate;transform-origin: center bottom;}
+.puppet .body{animation: bodyBob .32s ease-in-out infinite alternate;}
+.puppet .head{animation: headBob .32s ease-in-out infinite alternate;}
+.puppet.moving .legs{animation: legStride2 .18s linear infinite alternate;}
+.puppet.moving .body{animation: bodyBob .18s ease-in-out infinite alternate;}
+.puppet.moving .head{animation: headBob .18s ease-in-out infinite alternate;}
+
+.ball{
+  position:absolute;width:26px;height:26px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, #ffffff, #e8e8e8 45%, #9a9a9a 100%);
+  border:2px solid #1a1a1a;
+  box-shadow:0 6px 12px rgba(0,0,0,.65), inset 0 -4px 8px rgba(0,0,0,.25), inset 0 3px 5px rgba(255,255,255,.95);
+  z-index:12;pointer-events:none;
+  transform:translate(-50%,-50%);
+  will-change:left,top;
+  transition:left .15s ease, top .15s ease;
+}
+.ball::before{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(circle at 50% 50%, #111 0%, #111 14%, transparent 15%),
+    radial-gradient(circle at 15% 50%, #111 0%, #111 9%, transparent 10%),
+    radial-gradient(circle at 85% 50%, #111 0%, #111 9%, transparent 10%),
+    radial-gradient(circle at 50% 15%, #111 0%, #111 9%, transparent 10%),
+    radial-gradient(circle at 50% 85%, #111 0%, #111 9%, transparent 10%);
+  animation:ballSpin 1.2s linear infinite;
+}
+@keyframes ballSpin{
+  from{transform:rotate(0deg);}
+  to{transform:rotate(360deg);}
+}
+
+.sling-line{
+  position:absolute;height:3px;
+  background:linear-gradient(90deg, rgba(255,184,77,.9), rgba(255,184,77,.2));
+  transform-origin:0 50%;border-radius:99px;z-index:8;
+  pointer-events:none;box-shadow:0 0 12px rgba(255,184,77,.9);
+  opacity:0;transition:opacity .1s ease;
+}
+.sling-line.show{opacity:1;}
+.sling-power{
+  position:absolute;height:8px;border-radius:99px;
+  background:linear-gradient(90deg, #5de2a2, #ffb84d, #ff6262);
+  transform-origin:0 50%;z-index:9;pointer-events:none;
+  box-shadow:0 0 15px rgba(255,184,77,.9);
+  opacity:0;transition:opacity .1s ease;
+}
+.sling-power.show{opacity:1;}
+.sling-hint{
+  position:absolute;width:100px;height:100px;border-radius:50%;
+  border:2px dashed rgba(93,226,162,.7);
+  transform:translate(-50%,-50%) scale(1);
+  z-index:9;pointer-events:none;opacity:0;
+  transition:opacity .2s ease;
+  box-shadow:0 0 20px rgba(93,226,162,.5), inset 0 0 20px rgba(93,226,162,.2);
+  animation:slingPulse 1.2s ease-in-out infinite;
+}
+.sling-hint.show{opacity:1;}
+@keyframes slingPulse{
+  0%,100%{transform:translate(-50%,-50%) scale(1);}
+  50%{transform:translate(-50%,-50%) scale(1.12);}
+}
+
+.goal-text{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);
+  font-size:64px;font-weight:900;letter-spacing:-2.5px;
+  z-index:25;pointer-events:none;
+  background:linear-gradient(135deg,#fff,#ffb84d,#ff7a3d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 25px rgba(255,184,77,1)) drop-shadow(0 6px 20px rgba(0,0,0,.95));
+  animation:goalText 1.6s ease-out forwards;
+}
+.goal-text.opponent{
+  background:linear-gradient(135deg,#fff,#ff6262,#c93636);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  filter:drop-shadow(0 0 25px rgba(255,98,98,1)) drop-shadow(0 6px 20px rgba(0,0,0,.95));
+}
+@keyframes goalText{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-12deg);}
+  20%{opacity:1;transform:translate(-50%,-50%) scale(1.25) rotate(5deg);}
+  80%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0);}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(1.6);}
+}
+.goal-flash{
+  position:absolute;inset:0;pointer-events:none;z-index:20;
+  animation:goalFlash 1.3s ease-out forwards;
+}
+.goal-flash.bd{background:radial-gradient(circle at 50% 50%, rgba(93,226,162,.7), transparent 65%);}
+.goal-flash.in{background:radial-gradient(circle at 50% 50%, rgba(255,98,98,.7), transparent 65%);}
+@keyframes goalFlash{0%{opacity:0;}20%{opacity:1;}100%{opacity:0;}}
+.float-popup{
+  position:absolute;font-size:22px;font-weight:900;
+  pointer-events:none;z-index:18;
+  transform:translate(-50%,-50%);
+  animation:floatUp 1.5s ease-out forwards;
+  text-shadow:0 3px 14px rgba(0,0,0,.95);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.float-popup.plus{color:var(--green);}
+.float-popup.minus{color:var(--red);}
+@keyframes floatUp{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.5);}
+  20%{opacity:1;transform:translate(-50%,-80%) scale(1.35);}
+  60%{opacity:1;transform:translate(-50%,-160%) scale(1);}
+  100%{opacity:0;transform:translate(-50%,-260%) scale(.85);}
+}
+.confetti-piece{
+  position:absolute;width:8px;height:8px;pointer-events:none;z-index:22;
+  top:-10px;animation:confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0);opacity:1;}
+  100%{transform:translateY(120vh) rotate(720deg);opacity:.9;}
+}
+
+.ball-reset-flash{
+  position:absolute;
+  left:50%;top:62%;
+  width:60px;height:60px;
+  border-radius:50%;
+  border:3px solid rgba(93,226,162,.9);
+  transform:translate(-50%,-50%) scale(.3);
+  pointer-events:none;
+  z-index:16;
+  animation:ballResetPulse .8s ease-out forwards;
+}
+@keyframes ballResetPulse{
+  0%{transform:translate(-50%,-50%) scale(.3);opacity:1;box-shadow:0 0 20px rgba(93,226,162,.7);}
+  100%{transform:translate(-50%,-50%) scale(2.5);opacity:0;box-shadow:0 0 60px rgba(93,226,162,0);}
+}
+
+.ready-overlay{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:rgba(5,5,12,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  z-index:30;gap:14px;padding:24px;text-align:center;
+  transition:opacity .35s ease,visibility .35s ease;
+  cursor:pointer;border-radius:14px;
+}
+.ready-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.ready-icon{
+  width:76px;height:76px;border-radius:22px;
+  background:linear-gradient(135deg,#5de2a2,#25a96c);
+  display:grid;place-items:center;
+  box-shadow:0 15px 40px rgba(93,226,162,.5);
+  font-size:42px;
+  animation:readyBounce 1.8s ease-in-out infinite;
+}
+@keyframes readyBounce{
+  0%,100%{transform:translateY(0) scale(1);}
+  50%{transform:translateY(-6px) scale(1.05);}
+}
+.ready-title{font-size:22px;font-weight:900;}
+.ready-sub{color:#c4ccd8;font-size:12.5px;line-height:1.6;max-width:300px;}
+.ready-sub b{color:var(--green);}
+.ready-tap{
+  font-size:12px;font-weight:900;color:var(--green);
+  letter-spacing:1px;text-transform:uppercase;
+  padding:10px 22px;border-radius:99px;
+  background:rgba(93,226,162,.15);
+  border:2px solid rgba(93,226,162,.5);
+  animation:pulseTxt 1.2s ease-in-out infinite;
+  margin-top:6px;
+}
+@keyframes pulseTxt{
+  0%,100%{opacity:.6;transform:scale(1);}
+  50%{opacity:1;transform:scale(1.08);}
+}
+
+.intro-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(9,10,15,.98);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+  transition:opacity .4s ease,visibility .4s ease;
+}
+.intro-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.intro-box{
+  width:100%;max-width:400px;padding:30px 24px;border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(93,226,162,.15), transparent 60%),
+    linear-gradient(145deg,#1a2a1f,#0f131a);
+  border:1px solid rgba(93,226,162,.3);
+  box-shadow:0 30px 100px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.08);
+  text-align:center;
+}
+.intro-icon{
+  width:92px;height:92px;margin:0 auto 20px;border-radius:28px;
+  background:radial-gradient(circle at 30% 20%, #a8ffd4, transparent 50%), linear-gradient(135deg,#5de2a2,#25a96c);
+  display:grid;place-items:center;
+  box-shadow:0 20px 50px rgba(93,226,162,.55);
+  font-size:48px;
+  animation:introBounce 2.6s ease-in-out infinite;
+}
+@keyframes introBounce{
+  0%,100%{transform:translateY(0) rotate(-4deg);}
+  50%{transform:translateY(-8px) rotate(4deg);}
+}
+.intro-title{
+  font-size:26px;font-weight:900;margin-bottom:6px;
+  background:linear-gradient(135deg,#fff,#5de2a2,#ffb84d);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.intro-sub{color:var(--muted);font-size:12.5px;margin-bottom:20px;}
+.intro-teams{
+  display:flex;align-items:center;justify-content:space-around;
+  margin-bottom:18px;padding:14px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;
+}
+.intro-team{display:flex;flex-direction:column;align-items:center;gap:7px;}
+.intro-team .team-flag{width:44px;height:32px;border-radius:6px;}
+.intro-team-label{font-size:11px;font-weight:850;}
+.intro-team-label.bd{color:var(--green);}
+.intro-team-label.in{color:var(--gold);}
+.intro-vs{
+  font-size:15px;font-weight:900;color:var(--red);
+  padding:6px 12px;border-radius:99px;
+  background:rgba(255,98,98,.12);
+  border:1px solid rgba(255,98,98,.3);
+}
+.intro-rules{
+  padding:14px;border-radius:16px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.06);
+  margin-bottom:20px;text-align:left;
+}
+.intro-rules-title{
+  color:var(--green);font-size:10.5px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:9px;
+}
+.intro-rule{
+  display:flex;align-items:center;gap:8px;padding:5px 0;
+  color:#c4ccd8;font-size:11.5px;line-height:1.5;
+}
+.intro-rule span.dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--green);flex-shrink:0;
+  box-shadow:0 0 8px rgba(93,226,162,.8);
+}
+.intro-play-btn{
+  width:100%;height:54px;border-radius:15px;
+  background:linear-gradient(135deg,#5de2a2,#25a96c);
+  color:#fff;font-size:15px;font-weight:900;letter-spacing:.6px;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  box-shadow:0 12px 32px rgba(93,226,162,.55),inset 0 1px 0 rgba(255,255,255,.25);
+}
+.intro-play-btn svg{width:18px;height:18px;fill:#fff;}
+
+.summary-overlay{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(9,10,15,.96);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+}
+.summary-overlay.show{display:flex;}
+.summary-box{
+  width:100%;max-width:400px;padding:28px 22px;border-radius:26px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(168,138,255,.15), transparent 60%),
+    linear-gradient(145deg,#1a1530,#0f131a);
+  border:1px solid rgba(168,138,255,.25);
+  box-shadow:0 30px 100px rgba(0,0,0,.85);
+  text-align:center;
+  animation:modalIn .35s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes modalIn{from{opacity:0;transform:scale(.9);}to{opacity:1;transform:scale(1);}}
+.summary-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:5px 12px;border-radius:99px;
+  font-size:10.5px;font-weight:850;letter-spacing:.5px;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.summary-badge.win{background:rgba(93,226,162,.15);border:1px solid rgba(93,226,162,.4);color:var(--green);}
+.summary-badge.lose{background:rgba(255,98,98,.15);border:1px solid rgba(255,98,98,.4);color:var(--red);}
+.summary-badge svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2.4;}
+.summary-icon{
+  width:78px;height:78px;margin:0 auto 16px;border-radius:24px;
+  display:grid;place-items:center;font-size:38px;
+}
+.summary-icon.win{background:linear-gradient(135deg,rgba(93,226,162,.18),rgba(93,226,162,.06));border:1px solid rgba(93,226,162,.35);}
+.summary-icon.lose{background:linear-gradient(135deg,rgba(255,98,98,.18),rgba(255,98,98,.06));border:1px solid rgba(255,98,98,.35);}
+.summary-title{font-size:22px;font-weight:900;margin-bottom:4px;}
+.summary-title.win{color:var(--green);}
+.summary-title.lose{color:var(--red);}
+.summary-sub{color:var(--muted);font-size:12px;margin-bottom:18px;}
+.summary-stats{
+  padding:12px;border-radius:14px;
+  background:rgba(0,0,0,.3);
+  border:1px solid rgba(255,255,255,.06);
+  margin-bottom:12px;text-align:left;
+}
+.summary-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,.04);
+  font-size:12.5px;
+}
+.summary-row:last-child{border-bottom:0;}
+.summary-row-label{color:var(--muted);font-weight:600;font-size:11.5px;}
+.summary-row-value{font-weight:850;font-variant-numeric:tabular-nums;}
+.summary-row-value.green{color:var(--green);}
+.summary-row-value.red{color:var(--red);}
+.summary-row-value.gold{color:var(--gold);}
+.net-result{
+  padding:12px 14px;border-radius:14px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+}
+.net-result.win{
+  background:linear-gradient(135deg, rgba(93,226,162,.18), rgba(93,226,162,.06));
+  border:1px solid rgba(93,226,162,.35);
+}
+.net-result.lose{
+  background:linear-gradient(135deg, rgba(255,98,98,.18), rgba(255,98,98,.06));
+  border:1px solid rgba(255,98,98,.35);
+}
+.net-result-label{font-size:10.5px;font-weight:750;letter-spacing:.3px;text-transform:uppercase;}
+.net-result.win .net-result-label{color:var(--green);}
+.net-result.lose .net-result-label{color:var(--red);}
+.net-result-value{font-size:18px;font-weight:900;font-variant-numeric:tabular-nums;}
+.net-result.win .net-result-value{color:var(--green);}
+.net-result.lose .net-result-value{color:var(--red);}
+.balance-compare{
+  padding:14px;border-radius:14px;
+  background:rgba(0,0,0,.35);
+  border:1px solid rgba(255,255,255,.06);
+  margin-bottom:16px;
+}
+.balance-compare-title{
+  color:var(--purple-bright);font-size:10px;font-weight:800;
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:10px;
+}
+.balance-arrow{display:flex;align-items:center;justify-content:space-between;gap:8px;}
+.balance-box{
+  flex:1;padding:10px 8px;border-radius:11px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.05);
+  text-align:center;
+}
+.balance-box-label{
+  color:var(--muted);font-size:9px;font-weight:700;letter-spacing:.4px;
+  text-transform:uppercase;margin-bottom:4px;
+}
+.balance-box-value{font-size:14px;font-weight:900;font-variant-numeric:tabular-nums;}
+.balance-box-value.old{color:#c4ccd8;}
+.balance-box-value.new{color:var(--green);}
+.balance-arrow-icon{
+  flex-shrink:0;width:24px;height:24px;display:grid;place-items:center;
+  border-radius:50%;background:rgba(168,138,255,.12);
+}
+.balance-arrow-icon svg{width:12px;height:12px;stroke:var(--purple-bright);fill:none;stroke-width:2.4;}
+.summary-btn-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+.summary-home-btn{
+  width:100%;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,#a17aff,#7042e6);
+  color:#fff;font-size:13.5px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 12px 32px rgba(119,78,239,.55);
+}
+.summary-home-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;}
+.wallet-btn{
+  width:100%;height:48px;border-radius:14px;
+  background:linear-gradient(135deg,#5de2a2,#25a96c);
+  color:#fff;font-size:13.5px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 12px 32px rgba(93,226,162,.45);
+}
+.wallet-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.2;}
+
+.toast{
+  position:fixed;z-index:400;left:50%;bottom:30px;
+  max-width:calc(100vw - 36px);padding:10px 15px;
+  transform:translate(-50%,12px);
+  border:1px solid var(--line);border-radius:13px;
+  background:rgba(31,32,42,.96);
+  font-size:12px;font-weight:600;
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease,transform .2s ease;
+  box-shadow:0 15px 40px rgba(0,0,0,.5);
+}
+.toast.show{transform:translate(-50%,0);opacity:1;}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg fill="none" viewBox="0 0 24 24">
+          <path d="M7 4h10l3 5-8 11L4 9l3-5z" stroke-width="1.8" stroke-linejoin="round"/>
+          <path d="M4 9h16M7 4l5 5 5-5" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="brand-name">Football</div>
+    </div>
+    <div class="topbar-right">
+      <button class="sound-toggle" id="soundToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7"/>
+          <path d="M18.5 5.5a9 9 0 0 1 0 13"/>
+        </svg>
+      </button>
+      <div class="header-balance">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6" stroke-linecap="round"/></svg>
+        <span class="header-balance-text" id="headerBalance">৳0.00</span>
+      </div>
+      <button class="exit-btn" id="exitBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+        EXIT
+      </button>
+    </div>
+  </div>
+
+  <div class="scoreboard">
+    <div class="team-info">
+      <div class="team-flag flag-bd"></div>
+      <div class="team-name">
+        <div class="team-name-label">You</div>
+        <div class="team-name-value bd">Bangladesh</div>
+      </div>
+    </div>
+    <div class="score-box">
+      <span class="score-bd" id="scoreBD">0</span>
+      <span class="score-sep">:</span>
+      <span class="score-in" id="scoreIN">0</span>
+    </div>
+    <div class="team-info right">
+      <div class="team-flag flag-in"></div>
+      <div class="team-name">
+        <div class="team-name-label">Bot</div>
+        <div class="team-name-value in">India</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-side">
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+      <div class="goal-dot bd"></div>
+    </div>
+    <div class="progress-vs">7 GOALS</div>
+    <div class="progress-side right">
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+      <div class="goal-dot in"></div>
+    </div>
+  </div>
+
+  <div class="stadium-wrap">
+    <div class="stadium" id="stadium">
+
+      <div class="stands">
+        <div class="stand top"></div>
+        <div class="stand bottom"></div>
+        <div class="stand left"></div>
+        <div class="stand right"></div>
+      </div>
+
+      <div class="barrier top"></div>
+      <div class="barrier bottom"></div>
+      <div class="barrier-left"></div>
+      <div class="barrier-right"></div>
+
+      <div class="floodlight tl"></div>
+      <div class="floodlight tr"></div>
+      <div class="floodlight bl"></div>
+      <div class="floodlight br"></div>
+
+      <div class="pitch" id="pitch">
+
+        <div class="field-border"></div>
+        <div class="center-circle"></div>
+        <div class="center-dot"></div>
+        <div class="penalty top"></div>
+        <div class="penalty bottom"></div>
+        <div class="goal-area top"></div>
+        <div class="goal-area bottom"></div>
+
+        <div class="goal-net top"></div>
+        <div class="goal-net bottom"></div>
+
+        <div class="goal-hit top" id="goalHitTop"></div>
+        <div class="goal-hit bottom" id="goalHitBottom"></div>
+
+        <div class="sling-hint" id="slingHint"></div>
+        <div class="sling-line" id="slingLine"></div>
+        <div class="sling-power" id="slingPower"></div>
+
+        <div class="puppet in" id="playerIN" style="left:50%;top:28%;">
+          <div class="puppet-shadow"></div>
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="legs"></div>
+        </div>
+
+        <div class="puppet bd" id="playerBD" style="left:50%;top:72%;">
+          <div class="puppet-shadow"></div>
+          <div class="head"></div>
+          <div class="body"></div>
+          <div class="legs"></div>
+        </div>
+
+        <div class="ball" id="ball" style="left:50%;top:60%;"></div>
+
+      </div>
+
+      <div class="ready-overlay" id="readyOverlay">
+        <div class="ready-icon">⚽</div>
+        <div class="ready-title">Kick Off!</div>
+        <div class="ready-sub">প্লেয়ারকে <b>drag</b> করে বলের কাছে যান<br>বলের উপর আঙুল দিয়ে <b>পিছনে টেনে ছেড়ে দিন</b></div>
+        <div class="ready-tap">👆 TAP TO START</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="intro-overlay" id="introOverlay">
+  <div class="intro-box">
+    <div class="intro-icon">⚽</div>
+    <div class="intro-title">Football Clash</div>
+    <div class="intro-sub">৭ গোলের ম্যাচ — যে আগে ৭ গোল করবে সে জিতবে</div>
+
+    <div class="intro-teams">
+      <div class="intro-team">
+        <div class="team-flag flag-bd"></div>
+        <div class="intro-team-label bd">Bangladesh</div>
+      </div>
+      <div class="intro-vs">VS</div>
+      <div class="intro-team">
+        <div class="team-flag flag-in"></div>
+        <div class="intro-team-label in">India</div>
+      </div>
+    </div>
+
+    <div class="intro-rules">
+      <div class="intro-rules-title">HOW TO PLAY</div>
+      <div class="intro-rule"><span class="dot"></span><span>প্লেয়ারকে <b>drag</b> করে সরান</span></div>
+      <div class="intro-rule"><span class="dot"></span><span>বলের উপর <b>আঙুল দিয়ে পিছনে টানুন</b></span></div>
+      <div class="intro-rule"><span class="dot"></span><span>যত জোরে টানবেন → বল তত জোরে যাবে</span></div>
+      <div class="intro-rule"><span class="dot"></span><span>বল <b>যেকোনো দিকে</b> মারতে পারবেন</span></div>
+      <div class="intro-rule"><span class="dot"></span><span>নিজের গোলে দিলে <b style="color:#ff6262">India গোল পাবে</b></span></div>
+      <div class="intro-rule"><span class="dot"></span><span>বল ৩ সেকেন্ড আটকে থাকলে <b style="color:#5de2a2">auto reset</b></span></div>
+      <div class="intro-rule"><span class="dot"></span><span>৭ গোল করলেই জয় — <b style="color:#5de2a2">+৳10</b></span></div>
+      <div class="intro-rule"><span class="dot"></span><span>হারলে <b style="color:#ff6262">−৳50</b></span></div>
+      <div class="intro-rule"><span class="dot"></span><span>Entry fee <b>৳10</b></span></div>
+    </div>
+
+    <button class="intro-play-btn" id="introPlayBtn">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      START MATCH
+    </button>
+  </div>
+</div>
+
+<div class="summary-overlay" id="summaryOverlay">
+  <div class="summary-box">
+    <div class="summary-badge" id="summaryBadge"></div>
+    <div class="summary-icon" id="summaryIcon"></div>
+    <div class="summary-title" id="summaryTitle">Match Over</div>
+    <div class="summary-sub" id="summarySub">Here is your result</div>
+
+    <div class="summary-stats">
+      <div class="summary-row">
+        <div class="summary-row-label">Final Score</div>
+        <div class="summary-row-value gold" id="sumScore">0 - 0</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Your Goals</div>
+        <div class="summary-row-value green" id="sumYourGoals">0</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Bot Goals</div>
+        <div class="summary-row-value red" id="sumBotGoals">0</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Entry Fee</div>
+        <div class="summary-row-value red" id="sumEntry">-৳10.00</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-row-label">Match Reward</div>
+        <div class="summary-row-value" id="sumReward">+৳0.00</div>
+      </div>
+    </div>
+
+    <div class="net-result" id="netResult">
+      <div class="net-result-label" id="netResultLabel">Net</div>
+      <div class="net-result-value" id="netResultValue">৳0.00</div>
+    </div>
+
+    <div class="balance-compare">
+      <div class="balance-compare-title">WALLET BALANCE</div>
+      <div class="balance-arrow">
+        <div class="balance-box">
+          <div class="balance-box-label">Before</div>
+          <div class="balance-box-value old" id="balanceBefore">৳0.00</div>
+        </div>
+        <div class="balance-arrow-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M13 6l6 6-6 6"/>
+          </svg>
+        </div>
+        <div class="balance-box">
+          <div class="balance-box-label">After</div>
+          <div class="balance-box-value new" id="balanceAfter">৳0.00</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-btn-row">
+      <button class="wallet-btn" onclick="location.href='wallet.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 7.5A2.5 2.5 0 0 1 5.5 5h13A2.5 2.5 0 0 1 21 7.5v11A2.5 2.5 0 0 1 18.5 21h-13A2.5 2.5 0 0 1 3 18.5v-11z"/>
+          <path d="M16 13h5"/>
+        </svg>
+        Wallet
+      </button>
+      <button class="summary-home-btn" onclick="location.href='home.html'">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3.5 10.5L12 3.5l8.5 7v8a1.5 1.5 0 0 1-1.5 1.5h-14a1.5 1.5 0 0 1-1.5-1.5v-8z"/>
+        </svg>
+        Home
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+import { getDatabase, ref, get, update, push, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCVuTqUM2jaawhWRzxWiK9cwUUxlH_LyB8",
+  authDomain: "exbt77-play.firebaseapp.com",
+  databaseURL: "https://exbt77-play-default-rtdb.firebaseio.com",
+  projectId: "exbt77-play",
+  storageBucket: "exbt77-play.firebasestorage.app",
+  messagingSenderId: "150332377686",
+  appId: "1:150332377686:web:9dbd97caecb7484a8089f7"
+};
+
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+const auth = getAuth(app);
+const db = getDatabase(app);
+setPersistence(auth, browserLocalPersistence).catch(err => console.error(err));
+
+/* =========================================================
+   CONFIG
+   ========================================================= */
+const ENTRY_FEE      = 10;
+const WIN_REWARD     = 10;
+const LOSE_PENALTY   = 50;
+const GOALS_TO_WIN   = 7;
+const EASY_GOALS     = 4;
+const GAME_ID        = "football";
+
+const EASY_BOT_SPEED      = 0.0022;
+const EASY_BOT_REACT      = 0.45;
+const HARD_BOT_SPEED      = 0.0110;
+const HARD_BOT_REACT      = 0.90;
+
+const FRICTION          = 0.985;
+const MIN_SHOT_POWER    = 0.008;
+const MAX_SHOT_POWER    = 0.058;
+const POWER_SCALE       = 0.20;
+
+const TOUCH_BALL_RANGE  = 0.20;
+const MIN_PULL_DIST     = 0.03;
+
+const PLAYER_RADIUS  = 0.055;
+const BALL_RADIUS    = 0.020;
+const COLLISION_DIST = PLAYER_RADIUS + BALL_RADIUS;
+
+const BOUND_PAD      = 0.05;
+const PLAYER_BOUND_X_MIN = BOUND_PAD;
+const PLAYER_BOUND_X_MAX = 1 - BOUND_PAD;
+const PLAYER_BOUND_Y_MIN = 0.42;
+const PLAYER_BOUND_Y_MAX = 1 - BOUND_PAD;
+
+const BOT_BOUND_X_MIN = BOUND_PAD;
+const BOT_BOUND_X_MAX = 1 - BOUND_PAD;
+const BOT_BOUND_Y_MIN = 0.05;
+const BOT_BOUND_Y_MAX = 0.45;
+
+/* ✅ Ball stuck detector */
+const BALL_STUCK_TIME = 3.0;     // seconds
+const BALL_STUCK_DIST = 0.008;   // movement threshold per frame
+const BALL_NEAR_WALL  = 0.10;    // wall proximity
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const money = v => Number(v || 0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+
+function toast(msg){
+  const el = document.getElementById("toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(window.__t);
+  window.__t = setTimeout(() => el.classList.remove("show"), 2000);
+}
+function vibrate(p){ if(navigator.vibrate) try{navigator.vibrate(p);}catch(e){} }
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let currentUser = null;
+let userBalance = 0;
+let balanceBefore = 0;
+let balanceAfter = 0;
+let soundOn = true;
+let running = false;
+let matchEnded = false;
+
+let scoreBD = 0, scoreIN = 0;
+let matchReward = 0;
+let net = 0;
+
+let playerBX = 0.5, playerBY = 0.78;
+let prevPlayerBX = 0.5, prevPlayerBY = 0.78;
+let playerIX = 0.5, playerIY = 0.22;
+let prevPlayerIX = 0.5, prevPlayerIY = 0.22;
+
+let botVX = 0, botVY = 0;
+
+let ballX = 0.5, ballY = 0.62;
+let ballVX = 0, ballVY = 0;
+let ballOwner = null;
+
+/* ✅ Ball stuck detector state */
+let ballStuckTimer = 0;
+let ballLastX = ballX;
+let ballLastY = ballY;
+
+let lastFrame = 0;
+let physicsId = null;
+let currentBotSpeed = EASY_BOT_SPEED;
+let currentBotReact = EASY_BOT_REACT;
+
+let slingActive = false;
+let slingStartX = 0, slingStartY = 0;
+let slingCurrentX = 0, slingCurrentY = 0;
+
+let lastCollisionSound = 0;
+
+/* DOM */
+const pitchEl = document.getElementById("pitch");
+const playerBDEl = document.getElementById("playerBD");
+const playerINELEl = document.getElementById("playerIN");
+const ballEl = document.getElementById("ball");
+const slingLine = document.getElementById("slingLine");
+const slingPower = document.getElementById("slingPower");
+const slingHint = document.getElementById("slingHint");
+const readyOverlay = document.getElementById("readyOverlay");
+const introOverlay = document.getElementById("introOverlay");
+const introPlayBtn = document.getElementById("introPlayBtn");
+const summaryOverlay = document.getElementById("summaryOverlay");
+const soundToggle = document.getElementById("soundToggle");
+const exitBtn = document.getElementById("exitBtn");
+
+/* =========================================================
+   AUDIO
+   ========================================================= */
+let audioCtx = null;
+function ensureAudio(){
+  if(!audioCtx){
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if(AC) audioCtx = new AC();
+  }
+  if(audioCtx && audioCtx.state === "suspended") audioCtx.resume().catch(()=>{});
+}
+function tone(freq, dur, type, vol, delay){
+  if(!soundOn || !audioCtx) return;
+  const t0 = audioCtx.currentTime + (delay || 0);
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = type || "sine";
+  osc.frequency.setValueAtTime(freq, t0);
+  gain.gain.setValueAtTime(vol || 0.12, t0);
+  gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t0); osc.stop(t0 + dur + 0.02);
+}
+function kickSound(power){
+  if(!soundOn || !audioCtx) return;
+  const t0 = audioCtx.currentTime;
+  const p = clamp(power, 0.2, 1);
+  const osc = audioCtx.createOscillator();
+  const g1 = audioCtx.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(180 + p*80, t0);
+  osc.frequency.exponentialRampToValueAtTime(60, t0 + 0.1);
+  g1.gain.setValueAtTime(0.28 * p, t0);
+  g1.gain.exponentialRampToValueAtTime(0.001, t0 + 0.12);
+  osc.connect(g1).connect(audioCtx.destination);
+  osc.start(t0); osc.stop(t0 + 0.13);
+
+  const bufSize = 500;
+  const buffer = audioCtx.createBuffer(1, bufSize, audioCtx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for(let i=0;i<bufSize;i++) data[i] = (Math.random()*2-1) * (1 - i/bufSize);
+  const src = audioCtx.createBufferSource();
+  src.buffer = buffer;
+  const g2 = audioCtx.createGain();
+  g2.gain.setValueAtTime(0.22 * p, t0);
+  g2.gain.exponentialRampToValueAtTime(0.001, t0 + 0.08);
+  src.connect(g2).connect(audioCtx.destination);
+  src.start();
+}
+function collisionSound(power){
+  if(!soundOn || !audioCtx) return;
+  const now = performance.now();
+  if(now - lastCollisionSound < 120) return;
+  lastCollisionSound = now;
+  const t0 = audioCtx.currentTime;
+  const p = clamp(power, 0.2, 1);
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.type = "triangle";
+  osc.frequency.setValueAtTime(320 + p * 200, t0);
+  osc.frequency.exponentialRampToValueAtTime(180, t0 + 0.06);
+  gain.gain.setValueAtTime(0.10 * p, t0);
+  gain.gain.exponentialRampToValueAtTime(0.001, t0 + 0.07);
+  osc.connect(gain).connect(audioCtx.destination);
+  osc.start(t0); osc.stop(t0 + 0.08);
+}
+function goalSound(){ [523,659,784,1046,1318].forEach((f,i)=>tone(f,0.14,"triangle",0.16,i*0.08)); }
+function opponentGoalSound(){ [400,320,240,180].forEach((f,i)=>tone(f,0.14,"sawtooth",0.13,i*0.09)); }
+function whistleSound(){
+  tone(2200,0.14,"sine",0.14,0);
+  tone(2200,0.14,"sine",0.14,0.18);
+  tone(2600,0.4,"sine",0.16,0.38);
+}
+function resetSound(){
+  [700, 900, 1100].forEach((f, i) => tone(f, 0.08, "sine", 0.10, i * 0.05));
+}
+
+/* =========================================================
+   AUTH
+   ========================================================= */
+onAuthStateChanged(auth, async (user) => {
+  if(!user){ location.replace("login.html"); return; }
+  currentUser = user;
+  try{
+    const snap = await get(ref(db, "users/" + user.uid));
+    const data = snap.val() || {};
+    userBalance = Number(data.balance || 0);
+    balanceBefore = userBalance;
+    document.getElementById("headerBalance").textContent = "৳" + money(userBalance);
+  }catch(err){ console.error(err); }
+});
+
+/* =========================================================
+   RENDER
+   ========================================================= */
+function render(){
+  playerBDEl.style.left = (playerBX * 100) + "%";
+  playerBDEl.style.top  = (playerBY * 100) + "%";
+  playerINELEl.style.left = (playerIX * 100) + "%";
+  playerINELEl.style.top  = (playerIY * 100) + "%";
+  ballEl.style.left = (ballX * 100) + "%";
+  ballEl.style.top  = (ballY * 100) + "%";
+
+  const dB = Math.hypot(ballX - playerBX, ballY - playerBY);
+  if(dB < TOUCH_BALL_RANGE && running && !slingActive){
+    slingHint.classList.add("show");
+    slingHint.style.left = (ballX * 100) + "%";
+    slingHint.style.top  = (ballY * 100) + "%";
+  } else {
+    slingHint.classList.remove("show");
+  }
+}
+
+/* =========================================================
+   DIFFICULTY
+   ========================================================= */
+function updateDifficulty(){
+  const totalGoals = scoreBD + scoreIN;
+  if(totalGoals < EASY_GOALS){
+    currentBotSpeed = EASY_BOT_SPEED;
+    currentBotReact = EASY_BOT_REACT;
+  } else {
+    currentBotSpeed = HARD_BOT_SPEED;
+    currentBotReact = HARD_BOT_REACT;
+  }
+}
+
+/* =========================================================
+   BALL ↔ PLAYER COLLISION
+   ========================================================= */
+function handleBallCollision(){
+  if(ballOwner !== null) return;
+  if(!running) return;
+
+  /* বাংলাদেশ */
+  const dxB = ballX - playerBX;
+  const dyB = ballY - playerBY;
+  const distB = Math.hypot(dxB, dyB);
+
+  if(distB < COLLISION_DIST && distB > 0.0001){
+    const nx = dxB / distB;
+    const ny = dyB / distB;
+    const overlap = COLLISION_DIST - distB;
+    ballX += nx * overlap;
+    ballY += ny * overlap;
+
+    const pvx = (playerBX - prevPlayerBX);
+    const pvy = (playerBY - prevPlayerBY);
+    const playerSpeed = Math.hypot(pvx, pvy);
+
+    const PUSH_STRENGTH = 0.010;
+    const MIN_PUSH = 0.006;
+
+    ballVX += pvx * 0.8 + nx * PUSH_STRENGTH;
+    ballVY += pvy * 0.8 + ny * PUSH_STRENGTH;
+
+    const currSpeed = Math.hypot(ballVX, ballVY);
+    if(currSpeed < MIN_PUSH){
+      ballVX = nx * MIN_PUSH;
+      ballVY = ny * MIN_PUSH;
+    }
+
+    if(playerSpeed > 0.004) collisionSound(playerSpeed * 20);
+  }
+
+  /* ইন্ডিয়া */
+  const dxI = ballX - playerIX;
+  const dyI = ballY - playerIY;
+  const distI = Math.hypot(dxI, dyI);
+
+  if(distI < COLLISION_DIST && distI > 0.0001){
+    const nx = dxI / distI;
+    const ny = dyI / distI;
+    const overlap = COLLISION_DIST - distI;
+    ballX += nx * overlap;
+    ballY += ny * overlap;
+
+    const bvx = (playerIX - prevPlayerIX);
+    const bvy = (playerIY - prevPlayerIY);
+
+    const PUSH_STRENGTH = 0.010;
+    const MIN_PUSH = 0.006;
+
+    ballVX += bvx * 0.8 + nx * PUSH_STRENGTH;
+    ballVY += bvy * 0.8 + ny * PUSH_STRENGTH;
+
+    const currSpeed = Math.hypot(ballVX, ballVY);
+    if(currSpeed < MIN_PUSH){
+      ballVX = nx * MIN_PUSH;
+      ballVY = ny * MIN_PUSH;
+    }
+  }
+
+  const MAX_V = 0.085;
+  const sp = Math.hypot(ballVX, ballVY);
+  if(sp > MAX_V){
+    ballVX = (ballVX / sp) * MAX_V;
+    ballVY = (ballVY / sp) * MAX_V;
+  }
+}
+
+/* =========================================================
+   ✅ BALL STUCK DETECTOR
+   ---------------------------------------------------------
+   Ball যদি ৩ সেকেন্ড ধরে না নড়ে বা দেয়ালে আটকে থাকে
+   → auto reset হয়ে center-এ চলে আসবে
+   ========================================================= */
+function checkBallStuck(dt){
+  const dtSec = dt / 60; // frames → seconds
+
+  // Ball-এর movement এই frame-এ
+  const movedX = Math.abs(ballX - ballLastX);
+  const movedY = Math.abs(ballY - ballLastY);
+  const moved = movedX + movedY;
+
+  ballLastX = ballX;
+  ballLastY = ballY;
+
+  // Ball দেয়ালের কাছে?
+  const nearWall =
+    ballX < BALL_NEAR_WALL ||
+    ballX > 1 - BALL_NEAR_WALL ||
+    ballY < BALL_NEAR_WALL ||
+    ballY > 1 - BALL_NEAR_WALL;
+
+  // Ball আটকে আছে? (movement কম)
+  const isStuck = moved < BALL_STUCK_DIST;
+
+  // শুধু তখনই count করবো যখন ball কারো কাছে নেই
+  if(ballOwner === null && isStuck){
+    ballStuckTimer += dtSec;
+
+    if(ballStuckTimer >= BALL_STUCK_TIME){
+      resetBallToCenter();
+      ballStuckTimer = 0;
+    }
+  } else if(ballOwner === null && nearWall && moved < BALL_STUCK_DIST * 2){
+    // Ball দেয়ালের কাছে + ধীরে চলছে → timer অর্ধেক গতিতে চালাও
+    ballStuckTimer += dtSec * 0.6;
+    if(ballStuckTimer >= BALL_STUCK_TIME){
+      resetBallToCenter();
+      ballStuckTimer = 0;
+    }
+  } else {
+    // Ball দ্রুত নড়ছে → timer কমাও
+    ballStuckTimer = Math.max(0, ballStuckTimer - dtSec * 2.5);
+  }
+}
+
+/* Ball reset to center */
+function resetBallToCenter(){
+  ballX = 0.5;
+  ballY = 0.62;
+  ballVX = 0;
+  ballVY = 0;
+  ballLastX = ballX;
+  ballLastY = ballY;
+  ballStuckTimer = 0;
+
+  // Visual effect
+  const flash = document.createElement("div");
+  flash.className = "ball-reset-flash";
+  pitchEl.appendChild(flash);
+  setTimeout(() => flash.remove(), 900);
+
+  // Sound
+  resetSound();
+  vibrate(30);
+
+  toast("⚽ Ball reset to center");
+}
+
+/* =========================================================
+   SMART INDIA AI
+   ========================================================= */
+function botUpdate(dt){
+  if(!running) return;
+
+  const INDIA_GOAL_Y = 0.06;
+
+  const predict = 3 + (currentBotReact * 5);
+  const futureBallX = clamp(ballX + ballVX * predict, 0.05, 0.95);
+  const futureBallY = clamp(ballY + ballVY * predict, 0.05, 0.95);
+
+  let targetX = playerIX;
+  let targetY = playerIY;
+
+  if(ballOwner === "in"){
+    targetX = 0.5;
+    targetY = 0.30;
+    if(playerIY > 0.20 && Math.random() < currentBotReact * 0.12){
+      botShoot();
+    }
+  } else if(ballOwner === "bd"){
+    const midX = playerBX + (ballX - playerBX) * 0.5;
+    const midY = playerBY - (playerBY - INDIA_GOAL_Y) * 0.35;
+    targetX = clamp(midX, 0.1, 0.9);
+    targetY = clamp(midY - 0.03, 0.08, 0.40);
+  } else {
+    const dx = futureBallX - playerIX;
+    const dy = futureBallY - playerIY;
+    const dist = Math.hypot(dx, dy);
+
+    if(ballY < 0.55){
+      targetX = futureBallX;
+      targetY = futureBallY - 0.02;
+    } else {
+      targetX = clamp(futureBallX * 0.7 + 0.15, 0.15, 0.85);
+      targetY = clamp(0.25, 0.10, 0.40);
+    }
+
+    if(dist < 0.15){
+      targetX = ballX;
+      targetY = ballY;
+    }
+  }
+
+  targetX = clamp(targetX, 0.09, 0.91);
+  targetY = clamp(targetY, 0.08, 0.42);
+
+  const dx = targetX - playerIX;
+  const dy = targetY - playerIY;
+  const d = Math.hypot(dx, dy);
+
+  const ACCEL = currentBotSpeed * currentBotReact;
+  if(d > 0.005){
+    botVX += (dx / d) * ACCEL * dt * 0.35;
+    botVY += (dy / d) * ACCEL * dt * 0.35;
+  } else {
+    botVX *= 0.85;
+    botVY *= 0.85;
+  }
+
+  const MAX_BOT_SPEED = currentBotSpeed * 1.4;
+  const botSpeed = Math.hypot(botVX, botVY);
+  if(botSpeed > MAX_BOT_SPEED){
+    botVX = (botVX / botSpeed) * MAX_BOT_SPEED;
+    botVY = (botVY / botSpeed) * MAX_BOT_SPEED;
+  }
+
+  playerIX += botVX * dt;
+  playerIY += botVY * dt;
+
+  botVX *= 0.92;
+  botVY *= 0.92;
+
+  if(botSpeed > 0.001){
+    playerINELEl.classList.add("moving");
+  } else {
+    playerINELEl.classList.remove("moving");
+  }
+
+  /* Soft boundary */
+  const botOldX = playerIX;
+  const botOldY = playerIY;
+
+  playerIX = clamp(playerIX, BOT_BOUND_X_MIN, BOT_BOUND_X_MAX);
+  playerIY = clamp(playerIY, BOT_BOUND_Y_MIN, BOT_BOUND_Y_MAX);
+
+  if(playerIX !== botOldX) botVX = -botVX * 0.5;
+  if(playerIY !== botOldY) botVY = -botVY * 0.5;
+
+  /* Auto pickup */
+  if(ballOwner === null){
+    const speed = Math.hypot(ballVX, ballVY);
+    if(speed < 0.0045){
+      const dI = Math.hypot(ballX - playerIX, ballY - playerIY);
+      if(dI < 0.045){
+        ballOwner = "in";
+        playerINELEl.classList.add("has-ball");
+        playerBDEl.classList.remove("has-ball");
+      }
+    }
+  }
+
+  if(ballOwner === "in"){
+    ballX = playerIX;
+    ballY = playerIY + 0.055;
+    ballVX = 0; ballVY = 0;
+    if(playerIY < 0.40) playerIY += 0.001;
+  }
+}
+
+function botShoot(){
+  if(!running || ballOwner !== "in") return;
+
+  const react = currentBotReact;
+  const aimX = Math.random() < react
+    ? 0.36 + Math.random() * 0.28
+    : 0.1 + Math.random() * 0.8;
+
+  kickSound(0.9);
+  ballOwner = null;
+  playerINELEl.classList.remove("has-ball");
+
+  const dx = aimX - ballX;
+  const dy = 0.98 - ballY;
+  const d = Math.sqrt(dx*dx + dy*dy);
+  const power = 0.034 + Math.random() * 0.012 * react;
+  ballVX = (dx / d) * power;
+  ballVY = (dy / d) * power;
+}
+
+/* =========================================================
+   PHYSICS LOOP
+   ========================================================= */
+function physicsLoop(ts){
+  if(!running){ physicsId = null; return; }
+  if(!lastFrame) lastFrame = ts;
+  const dt = Math.min(32, ts - lastFrame) / 16.6667;
+  lastFrame = ts;
+
+  if(ballOwner === null){
+    ballX += ballVX * dt;
+    ballY += ballVY * dt;
+    ballVX *= Math.pow(FRICTION, dt);
+    ballVY *= Math.pow(FRICTION, dt);
+    if(Math.abs(ballVX) < 0.0003) ballVX = 0;
+    if(Math.abs(ballVY) < 0.0003) ballVY = 0;
+
+    if(ballX < 0.03){ ballX = 0.03; ballVX = Math.abs(ballVX) * 0.72; }
+    if(ballX > 0.97){ ballX = 0.97; ballVX = -Math.abs(ballVX) * 0.72; }
+    if(ballY < 0.03){ ballY = 0.03; ballVY = Math.abs(ballVY) * 0.72; }
+    if(ballY > 0.97){ ballY = 0.97; ballVY = -Math.abs(ballVY) * 0.72; }
+  }
+
+  handleBallCollision();
+  checkBallStuck(dt);   // ✅ ball stuck detector
+
+  if(ballOwner === null){
+    if(ballY < 0.05 && ballX > 0.32 && ballX < 0.68){
+      triggerGoal("bd", ballX, ballY);
+      return;
+    }
+    if(ballY > 0.95 && ballX > 0.32 && ballX < 0.68){
+      triggerGoal("in", ballX, ballY);
+      return;
+    }
+  }
+
+  botUpdate(dt);
+
+  /* Player soft boundary */
+  const pOldX = playerBX;
+  const pOldY = playerBY;
+
+  playerBX = clamp(playerBX, PLAYER_BOUND_X_MIN, PLAYER_BOUND_X_MAX);
+  playerBY = clamp(playerBY, PLAYER_BOUND_Y_MIN, PLAYER_BOUND_Y_MAX);
+
+  if(playerBX !== pOldX || playerBY !== pOldY){
+    dragging = false;
+  }
+
+  render();
+
+  prevPlayerBX = playerBX;
+  prevPlayerBY = playerBY;
+  prevPlayerIX = playerIX;
+  prevPlayerIY = playerIY;
+
+  physicsId = requestAnimationFrame(physicsLoop);
+}
+
+/* =========================================================
+   SLINGSHOT
+   ========================================================= */
+let dragging = false;
+let dragStartX = 0, dragStartY = 0;
+let dragStartBX = 0, dragStartBY = 0;
+
+function getPitchRect(){ return pitchEl.getBoundingClientRect(); }
+function evtPitchXY(e){
+  const rect = getPitchRect();
+  const t = (e.touches && e.touches[0]) ? e.touches[0] : e;
+  return {
+    px: (t.clientX - rect.left) / rect.width,
+    py: (t.clientY - rect.top)  / rect.height
+  };
+}
+
+function onDown(e){
+  if(!running) return;
+  const p = evtPitchXY(e);
+
+  const dBall = Math.hypot(p.px - ballX, p.py - ballY);
+  const dPlayer = Math.hypot(p.px - playerBX, p.py - playerBY);
+
+  if(dBall < TOUCH_BALL_RANGE && dPlayer < TOUCH_BALL_RANGE + 0.15){
+    slingActive = true;
+    slingStartX = p.px;
+    slingStartY = p.py;
+    slingCurrentX = p.px;
+    slingCurrentY = p.py;
+    updateSlingUI();
+    return;
+  }
+
+  if(p.py > 0.40){
+    dragging = true;
+    dragStartX = p.px;
+    dragStartY = p.py;
+    dragStartBX = playerBX;
+    dragStartBY = playerBY;
+    playerBDEl.classList.add("moving");
+  }
+}
+
+function onMove(e){
+  if(!running) return;
+  e.preventDefault();
+  const p = evtPitchXY(e);
+
+  if(slingActive){
+    slingCurrentX = p.px;
+    slingCurrentY = p.py;
+    updateSlingUI();
+    return;
+  }
+
+  if(dragging){
+    const dx = p.px - dragStartX;
+    const dy = p.py - dragStartY;
+
+    let newX = dragStartBX + dx;
+    let newY = dragStartBY + dy;
+
+    if(newX < PLAYER_BOUND_X_MIN){
+      newX = PLAYER_BOUND_X_MIN + (newX - PLAYER_BOUND_X_MIN) * 0.3;
+    }
+    if(newX > PLAYER_BOUND_X_MAX){
+      newX = PLAYER_BOUND_X_MAX + (newX - PLAYER_BOUND_X_MAX) * 0.3;
+    }
+    if(newY < PLAYER_BOUND_Y_MIN){
+      newY = PLAYER_BOUND_Y_MIN + (newY - PLAYER_BOUND_Y_MIN) * 0.3;
+    }
+    if(newY > PLAYER_BOUND_Y_MAX){
+      newY = PLAYER_BOUND_Y_MAX + (newY - PLAYER_BOUND_Y_MAX) * 0.3;
+    }
+
+    playerBX = clamp(newX, PLAYER_BOUND_X_MIN, PLAYER_BOUND_X_MAX);
+    playerBY = clamp(newY, PLAYER_BOUND_Y_MIN, PLAYER_BOUND_Y_MAX);
+
+    playerBDEl.classList.add("moving");
+    render();
+  }
+}
+
+function onUp(e){
+  if(!running) return;
+
+  if(slingActive){
+    slingActive = false;
+    const dx = slingStartX - slingCurrentX;
+    const dy = slingStartY - slingCurrentY;
+    const pullDist = Math.hypot(dx, dy);
+    hideSlingUI();
+
+    if(pullDist < MIN_PULL_DIST){
+      toast("বলকে পিছনে টেনে ছাড়ুন");
+      return;
+    }
+
+    const dirX = dx / pullDist;
+    const dirY = dy / pullDist;
+    const power = clamp(pullDist * POWER_SCALE, MIN_SHOT_POWER, MAX_SHOT_POWER);
+
+    kickSound(power / MAX_SHOT_POWER);
+    vibrate(25);
+
+    ballOwner = null;
+    playerBDEl.classList.remove("has-ball");
+
+    ballVX = dirX * power;
+    ballVY = dirY * power;
+
+    // Reset stuck timer after a shot
+    ballStuckTimer = 0;
+    return;
+  }
+
+  if(dragging){
+    dragging = false;
+    setTimeout(()=>{
+      if(!dragging) playerBDEl.classList.remove("moving");
+    }, 300);
+  }
+}
+
+function updateSlingUI(){
+  const dx = slingCurrentX - slingStartX;
+  const dy = slingCurrentY - slingStartY;
+  const dist = Math.hypot(dx, dy);
+  const powerRatio = clamp(dist / 0.35, 0, 1);
+
+  slingLine.style.left = (slingStartX * 100) + "%";
+  slingLine.style.top  = (slingStartY * 100) + "%";
+  slingLine.style.width = (dist * 100) + "%";
+  slingLine.style.transform = `rotate(${Math.atan2(dy, dx) * 180 / Math.PI}deg)`;
+  slingLine.classList.add("show");
+
+  const oppAngle = Math.atan2(-dy, -dx) * 180 / Math.PI;
+  slingPower.style.left = (slingStartX * 100) + "%";
+  slingPower.style.top  = (slingStartY * 100) + "%";
+  slingPower.style.width = (powerRatio * 30) + "%";
+  slingPower.style.transform = `rotate(${oppAngle}deg)`;
+  slingPower.classList.add("show");
+}
+
+function hideSlingUI(){
+  slingLine.classList.remove("show");
+  slingPower.classList.remove("show");
+}
+
+/* =========================================================
+   GOAL / MATCH
+   ========================================================= */
+function triggerGoal(who, x, y){
+  running = false;
+  if(physicsId) cancelAnimationFrame(physicsId);
+  physicsId = null;
+  slingActive = false;
+  dragging = false;
+  hideSlingUI();
+  botVX = 0; botVY = 0;
+
+  if(who === "bd"){
+    scoreBD++;
+    document.getElementById("scoreBD").textContent = scoreBD;
+    markDot("bd", scoreBD);
+    showGoalText("GOAL!", false);
+    showGoalFlash("bd");
+    flashGoalHit("bottom");
+    showFloatPopup("+1", x, y, "plus");
+    showConfetti(50);
+    goalSound();
+    vibrate([80,40,80,40,160]);
+  } else {
+    scoreIN++;
+    document.getElementById("scoreIN").textContent = scoreIN;
+    markDot("in", scoreIN);
+    showGoalText("GOAL!", true);
+    showGoalFlash("in");
+    flashGoalHit("top");
+    showFloatPopup("+1", x, y, "minus");
+    opponentGoalSound();
+    vibrate([120,60,120]);
+  }
+
+  updateDifficulty();
+
+  setTimeout(()=>{
+    if(scoreBD >= GOALS_TO_WIN || scoreIN >= GOALS_TO_WIN){
+      endMatch();
+      return;
+    }
+    resetAfterGoal();
+    running = true;
+    lastFrame = 0;
+    physicsId = requestAnimationFrame(physicsLoop);
+  }, 1800);
+}
+
+function markDot(team, count){
+  const dots = document.querySelectorAll(".goal-dot." + team);
+  if(dots[count - 1]) dots[count - 1].classList.add("filled");
+}
+
+function resetAfterGoal(){
+  playerBX = 0.5; playerBY = 0.78;
+  playerIX = 0.5; playerIY = 0.22;
+  prevPlayerBX = 0.5; prevPlayerBY = 0.78;
+  prevPlayerIX = 0.5; prevPlayerIY = 0.22;
+  botVX = 0; botVY = 0;
+  ballX = 0.5; ballY = 0.62;
+  ballVX = 0; ballVY = 0;
+  ballOwner = null;
+  ballStuckTimer = 0;
+  ballLastX = ballX;
+  ballLastY = ballY;
+  playerBDEl.classList.remove("has-ball");
+  playerINELEl.classList.remove("has-ball");
+  render();
+}
+
+/* =========================================================
+   START / END
+   ========================================================= */
+async function startMatch(){
+  if(!currentUser){ toast("Please login first"); return; }
+  if(userBalance < ENTRY_FEE){
+    toast(`Need ৳${money(ENTRY_FEE)} to play`);
+    return;
+  }
+
+  balanceBefore = userBalance;
+  try{
+    const newBal = +(userBalance - ENTRY_FEE).toFixed(2);
+    await update(ref(db, "users/" + currentUser.uid), { balance: newBal });
+    userBalance = newBal;
+    document.getElementById("headerBalance").textContent = "৳" + money(userBalance);
+    toast(`Entry fee ৳${money(ENTRY_FEE)} deducted`);
+  }catch(err){
+    console.error(err);
+    toast("Could not deduct entry fee");
+    return;
+  }
+
+  scoreBD = 0; scoreIN = 0; matchReward = 0; net = 0;
+  matchEnded = false;
+  currentBotSpeed = EASY_BOT_SPEED;
+  currentBotReact = EASY_BOT_REACT;
+  document.getElementById("scoreBD").textContent = "0";
+  document.getElementById("scoreIN").textContent = "0";
+  document.querySelectorAll(".goal-dot").forEach(d=>d.classList.remove("filled"));
+
+  resetAfterGoal();
+  readyOverlay.classList.add("hidden");
+  whistleSound();
+
+  running = true;
+  lastFrame = 0;
+  physicsId = requestAnimationFrame(physicsLoop);
+}
+
+async function endMatch(){
+  if(matchEnded) return;
+  matchEnded = true;
+  running = false;
+  if(physicsId) cancelAnimationFrame(physicsId);
+  whistleSound();
+
+  const won = scoreBD > scoreIN;
+  matchReward = won ? WIN_REWARD : -LOSE_PENALTY;
+  net = matchReward;
+  const newBalance = +(userBalance + net).toFixed(2);
+
+  if(currentUser && net !== 0){
+    try{
+      await update(ref(db, "users/" + currentUser.uid), { balance: newBalance });
+      userBalance = newBalance;
+      balanceAfter = newBalance;
+      document.getElementById("headerBalance").textContent = "৳" + money(userBalance);
+    }catch(err){ console.error(err); balanceAfter = userBalance; }
+  } else {
+    balanceAfter = userBalance;
+  }
+
+  if(currentUser){
+    try{
+      await push(ref(db, "users/" + currentUser.uid + "/gameHistory"), {
+        game: GAME_ID,
+        scoreBD, scoreIN,
+        matchReward, net,
+        entryFee: ENTRY_FEE,
+        balanceBefore, balanceAfter,
+        won,
+        ts: serverTimestamp()
+      });
+    }catch(err){ console.error(err); }
+  }
+
+  document.getElementById("sumScore").textContent     = scoreBD + " - " + scoreIN;
+  document.getElementById("sumYourGoals").textContent = scoreBD;
+  document.getElementById("sumBotGoals").textContent  = scoreIN;
+  document.getElementById("sumEntry").textContent     = "-৳" + money(ENTRY_FEE);
+  document.getElementById("sumReward").textContent    = (won ? "+৳" : "-৳") + money(Math.abs(matchReward));
+  document.getElementById("sumReward").className      = "summary-row-value " + (won ? "green" : "red");
+
+  const totalNet = +(-ENTRY_FEE + net).toFixed(2);
+
+  const netEl    = document.getElementById("netResult");
+  const netLabel = document.getElementById("netResultLabel");
+  const netVal   = document.getElementById("netResultValue");
+  netEl.className = "net-result " + (won ? "win" : "lose");
+  netLabel.textContent = won ? "Net Profit" : "Net Loss";
+  netVal.textContent   = (won ? "+৳" : "-৳") + money(Math.abs(totalNet));
+
+  document.getElementById("balanceBefore").textContent = "৳" + money(balanceBefore);
+  document.getElementById("balanceAfter").textContent  = "৳" + money(balanceAfter);
+
+  const badge  = document.getElementById("summaryBadge");
+  const sIcon  = document.getElementById("summaryIcon");
+  const sTitle = document.getElementById("summaryTitle");
+  const sSub   = document.getElementById("summarySub");
+
+  if(won){
+    badge.className = "summary-badge win";
+    badge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg> WIN`;
+    sIcon.className = "summary-icon win";
+    sIcon.textContent = "🏆";
+    sTitle.className = "summary-title win";
+    sTitle.textContent = "Bangladesh Wins!";
+    sSub.textContent = `আপনি ${scoreBD}-${scoreIN} গোলে জিতেছেন`;
+    showConfetti(80);
+  } else {
+    badge.className = "summary-badge lose";
+    badge.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6L6 18"/></svg> LOSS`;
+    sIcon.className = "summary-icon lose";
+    sIcon.textContent = "💔";
+    sTitle.className = "summary-title lose";
+    sTitle.textContent = "India Wins";
+    sSub.textContent = `আপনি ${scoreBD}-${scoreIN} গোলে হেরেছেন`;
+  }
+
+  summaryOverlay.classList.add("show");
+}
+
+/* =========================================================
+   EFFECTS
+   ========================================================= */
+function showFloatPopup(text, x, y, type){
+  const p = document.createElement("div");
+  p.className = "float-popup " + type;
+  p.textContent = text;
+  p.style.left = (x * 100) + "%";
+  p.style.top  = (y * 100) + "%";
+  pitchEl.appendChild(p);
+  setTimeout(()=>p.remove(), 1500);
+}
+function showGoalText(text, opponent){
+  const el = document.createElement("div");
+  el.className = "goal-text" + (opponent ? " opponent" : "");
+  el.textContent = text;
+  pitchEl.appendChild(el);
+  setTimeout(()=>el.remove(), 1700);
+}
+function showGoalFlash(type){
+  const el = document.createElement("div");
+  el.className = "goal-flash " + type;
+  pitchEl.appendChild(el);
+  setTimeout(()=>el.remove(), 1300);
+}
+function flashGoalHit(side){
+  const el = document.getElementById(side === "top" ? "goalHitTop" : "goalHitBottom");
+  el.classList.remove("flash");
+  void el.offsetWidth;
+  el.classList.add("flash");
+}
+function showConfetti(count){
+  const colors = ["#ffb84d","#5de2a2","#a88aff","#ff7a3d","#ffd166","#ff6262"];
+  for(let i=0;i<count;i++){
+    const p = document.createElement("div");
+    p.className = "confetti-piece";
+    p.style.left = Math.random()*100 + "%";
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.animationDuration = (1.4 + Math.random()*1.4) + "s";
+    p.style.animationDelay = (Math.random()*0.25) + "s";
+    if(Math.random() < 0.5) p.style.borderRadius = "50%";
+    pitchEl.appendChild(p);
+    setTimeout(()=>p.remove(), 3000);
+  }
+}
+
+/* =========================================================
+   EVENTS
+   ========================================================= */
+pitchEl.addEventListener("touchstart", (e)=>{ if(!running) return; e.preventDefault(); onDown(e); }, {passive:false});
+pitchEl.addEventListener("touchmove",  (e)=>{ if(!running) return; if(!slingActive && !dragging) return; e.preventDefault(); onMove(e); }, {passive:false});
+pitchEl.addEventListener("touchend",   (e)=>{ if(!running) return; e.preventDefault(); onUp(e); }, {passive:false});
+pitchEl.addEventListener("touchcancel",(e)=>{ slingActive = false; dragging = false; hideSlingUI(); }, {passive:true});
+
+pitchEl.addEventListener("mousedown", (e)=>{ if(!running) return; onDown(e); });
+window.addEventListener("mousemove", (e)=>{ if(!running) return; if(!slingActive && !dragging) return; onMove(e); });
+window.addEventListener("mouseup",   (e)=>{ if(!running) return; onUp(e); });
+
+function handleReadyTap(e){
+  if(e) e.preventDefault();
+  if(running || matchEnded) return;
+  ensureAudio();
+  startMatch();
+}
+readyOverlay.addEventListener("click", handleReadyTap);
+readyOverlay.addEventListener("touchstart", handleReadyTap, {passive:false});
+
+exitBtn.addEventListener("click", async ()=>{
+  if(!running && !matchEnded){ location.href = "home.html"; return; }
+  if(running && confirm("Exit করলে ম্যাচ বন্ধ হবে এবং রেজাল্ট দেখানো হবে।")){
+    endMatch();
+  }
+});
+
+introPlayBtn.addEventListener("click", ()=>{
+  ensureAudio();
+  introOverlay.classList.add("hidden");
+  readyOverlay.classList.remove("hidden");
+});
+
+soundToggle.addEventListener("click", ()=>{
+  soundOn = !soundOn;
+  soundToggle.classList.toggle("muted", !soundOn);
+});
+
+render();
+readyOverlay.classList.remove("hidden");
+
+window.addEventListener("pagehide", ()=>{
+  if(physicsId) cancelAnimationFrame(physicsId);
+});
+</script>
+</body>
+</html>
